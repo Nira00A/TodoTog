@@ -1,0 +1,416 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Colors*/
+:root{
+    --balck1: #000000;
+    --deepgray1: #353531;
+    --orange1: #ec4e20;
+    --yellow1: #FF9505;
+    --blue1: #016fb9;
+}
+
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+    height: 100vh;
+    width: 100vw;
+}
+
+/*Builder component css*/
+
+.Dashboard-height{
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+/*DashHeader css*/
+
+.DashHeader{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: white;
+}
+
+.searchbar{
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.searchbarBox{
+    width: 25rem;
+    padding-left: 40px;
+    border-radius: 50px;
+    padding-top: 0.5rem;
+    padding-right: 10px;
+    padding-bottom: 0.5rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightslategray;
+    
+}
+
+.iconsbar{
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.CompanyName{
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: Kanit;
+}
+
+.CompanyLogo{
+    border-radius: 50%;
+    padding-bottom: 4px;
+}
+
+/*CreateButton css*/
+
+.createDiv{
+    font-size: 1.5rem;
+}
+
+.createButtonDiv{
+    height: 40px;
+    width: 400px;
+    padding-left: 5px;
+}
+
+.createDescButtonDiv{
+    display: flex;
+    height: 230px;
+    width: 400px;
+    margin-top: 10px;
+}
+
+/*ProfileButton css*/
+
+.profileOpenButtonDiv {
+    background-color: white;
+    height: 300px;
+    width: 230px;
+    margin-top: 60px;
+    box-shadow: 10px black;
+    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    right: 19px;
+    z-index: 1000;
+    user-select: none;
+}
+
+.profileButtonHeight{
+    width: 210px;
+    cursor: pointer; 
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.profileButtonHeight:hover{
+    background-color: lightgray;
+}
+
+/*MessageButton css*/
+
+.messagepopup{
+    overflow: hidden;
+    background-color: white;
+    height: 300px;
+    width: 350px;
+    border-radius: 10px;
+    margin-top: 60px;
+    border: 1px solid var(--deepgray1);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 60px;
+    z-index: 1000;
+    user-select: none;
+}
+
+.messagepopupDivide{
+    display: flex;
+    gap: 10px;
+}
+
+.messagepopupNotif{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--deepgray1);
+    cursor: pointer;
+    height: 50px;
+    width: 90%;
+}
+
+.messagepopupNotif:hover{
+    border-top-left-radius: 10px;
+    background-color: #aaaaaa;
+}
+
+.messagepopupMess{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--deepgray1);
+    cursor: pointer;
+    height: 50px;
+    width: 90%;
+}
+
+.messagepopupMess:hover{
+    border-top-right-radius: 10px;
+    background-color: #aaaaaa;
+}
+
+.messagepopupItems{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/*Sidebar css*/
+
+.sidebar{
+    width: 200px;
+    min-width: 180px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--deepgray1);
+    height: calc(100vh - 60px);
+    font-size: 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+}
+
+
+/*DashCenter css*/
+
+.dashCenter{
+    display: flex;
+    flex-direction: column;
+    min-width: 80%;
+    width: 100%;
+}
+
+.dashCenterName{
+    width: auto;
+    font-size: 20px;
+    margin-bottom: 10px;
+    min-width: 20px;
+    color:#353531;
+}
+
+/*DashCard css*/
+
+.dashcardDiv{
+    width: 256px;
+    height: auto;
+    border-radius: 10px;
+    border-width: 1px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.dashcardDiv:hover{
+    background-color: #f3f3f3;
+}
+
+.dashCard{
+    height: 120px;
+    width: 10.5rem;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    color: #000000;
+    border-style: solid;
+    border-color: #dddddd;
+    border-width: 1px;
+    background-color: white;
+}
+
+/*ProgressBar css*/
+
+.progressBarContainer{
+    height: 1.3rem;
+    width: auto;
+    border-radius: 16px;
+    background-color: lightgray;
+}
+
+.progressBarFill{
+    height: 20px;
+    border-radius: 16px;
+    transition: width 0.5s ease-out;
+}
+
+/*ItemsInventory css*/
+
+.itemsContainer{
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+}
+
+/*DashTab css*/
+
+.dashTab{
+    width:31.3rem;
+    height: 300px;
+    border-radius: 10px;
+    background-color: rgb(255, 252, 252);
+}
+
+/*DashTab Card css*/
+
+.dashTabCard{
+    height: 300px;
+    width: 10.5rem;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/*Dashboard Layout*/
+
+.dashboard-layout{
+    height: 100vh;
+    width: 100vw;
+}
+
+.dash-body{
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color:#EEEEEE; 
+}
+
+.dash-body {
+    display: flex;
+    height: calc(100vh - 60px);
+    flex: 1; 
+}
+
+/*Sidebar*/
+
+.sideoptions{
+    border: black;
+    display: flex;
+    gap: 10px;
+    padding-left: 35px;
+    align-items: center;
+    justify-content: start;
+    border-radius: 5px;
+    height: 40px;
+    width: 180px;
+    color: white;
+    cursor: pointer;
+}
+
+.sideoptions:hover{
+    background-color: rgb(136, 135, 135);
+}
+
+.sideoptionsSpread{
+    border-radius: 5px;
+    height: 40px;
+    width: 180px;
+}
+
+.sideoptionsSpread:hover{
+    background-color: white;
+}
+
+/* NewsFeed */
+
+.Newsfeed{
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: calc(100vh - 60px);
+    border-left: 0.1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+}
+
+.NewsCard{
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-top: 5px;
+    height: 230px;
+    width: 90%;
+}
+
+.NewsTopStories{
+    background-color: #ffffff;
+    border-radius: 5px;
+    height: 245px;
+    width: 90%;
+    padding: 7px;
+}
+
+.NewsTopStoriesCard{
+    background-color: #aaaaaa;
+    border-radius: 2px;
+    padding: 3px;
+    height: 60px;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+.Popup{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    z-index: 10000;
+    background-color: #ecebeb;
+    right: 2px; 
+    border-radius: 5px;
+}
+
+.parent { /* Replace with your parent selector, e.g., .row.border-bottom... */
+    display: flex;
+}
+  
+.column { /* Replace with your column selector, e.g., .col-md-3 */
+    flex: 1 0 20%; /* Grow: 1, Shrink: 0, Basis: 25% */
+}
+
+.columnLarge{
+    flex: 1 0 45.5%;
+}
+
+@media (max-width:1630px){
+    .Newsfeed{
+        width: 250px;
+    }
+}
+
+@media (max-width:1380px){
+    .Newsfeed{
+        display: none;
+    }
+}
