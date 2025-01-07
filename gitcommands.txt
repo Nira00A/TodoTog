@@ -1,0 +1,8 @@
+/*Add all files and all*/
+git add .
+
+/*Commit changes*/
+git commit -m "Added newfile.js to the project"
+
+/*Push the Changes to GitHub*/
+git push origin main
