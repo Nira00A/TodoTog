@@ -1,8 +1,8 @@
-import cors from "cors"
-import express from "express"
-import { Client } from "pg";
+const cors = require('cors')
+const express = require('express')
+const { Client } = require('pg');
 
-const PORT = 3000
+const PORT = 4000
 const app = express()
 
 app.use(cors())
@@ -20,15 +20,16 @@ client.connect()
 
 app.post('/todosubmit',async (req,res)=>{
     try {
-        const result = await client.query('INSERT INTO usertodo (todo , todotype , todostatus , tododate) VALUES ($1 ,$2 ,$3 ,$4) RETURNING *',
-            []
+        const result = await client.query('INSERT INTO usertodo (todo , todotype , todostatus , tododate , tododesc) VALUES ($1 ,$2 ,$3 ,$4) RETURNING *',
+            [todo , todotype , todostatus , tododate , tododesc]
         )
-
         console.log(result.rows)
     } catch (error) {
         console.log('There is an error', error)
     }
 })
+
+
 
 app.listen(PORT , (req , res)=>{
     console.log("Server is Running on" , PORT)
