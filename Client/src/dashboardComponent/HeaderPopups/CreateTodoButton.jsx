@@ -1,8 +1,23 @@
 import React, { useState } from "react";
+import axios from "axios"
 
 export default function CreateTodoButton({onClick}){
 
     const [tagName , setTagName] = useState()
+    const [formData , setFormData] = useState({todo:"",todotype:"",todostatus:"false",tododate:`${new Date().toISOString().split('T')[0]}`,tododesc:""})
+
+    const handleChange = () =>{
+        setFormData({...formData ,[e.target.name]: e.target.value })
+    }
+
+    const handleTodoSubmit = async () =>{
+        try {
+            await axios.post("http://localhost:4000/todosubmit", formData)
+        } catch (error) {
+            console.log("Trouble while Submitting the Data ,", error)
+        }
+    }
+
 
     const handleTagClick = (tagName) =>{
         setTagName(tagName)
@@ -12,7 +27,6 @@ export default function CreateTodoButton({onClick}){
     const handleCancelTagClick = () =>{
         setTagName()
     }
-
 
     return(
 
@@ -35,8 +49,8 @@ export default function CreateTodoButton({onClick}){
 
                     {tagName && <div className="flex pb-1"><Tags name={tagName} color='bg-gray-200' onTagClick={handleCancelTagClick}/></div>}
 
-                    <form>
-                        <input type="text"
+                    <form onSubmit={handleTodoSubmit}>
+                        <input name="todo"  type="text"
                         className="createButtonDiv bg-white rounded-xl border border-gray-300"/>
 
                         <div className="pt-2">
@@ -50,7 +64,7 @@ export default function CreateTodoButton({onClick}){
                             </div>
                         </div>
 
-                        <textarea type="text"
+                        <textarea name="tododesc" type="text"
                         className="createDescButtonDiv p-2 bg-white rounded-xl border border-gray-300"
                         />
 
