@@ -20,7 +20,7 @@ client.connect()
 
 app.post('/todosubmit',async (req,res)=>{
     try {
-        const result = await client.query('INSERT INTO usertodo (todo , todotype , todostatus , tododate , tododesc) VALUES ($1 ,$2 ,$3 ,$4) RETURNING *',
+        const result = await client.query('INSERT INTO usertodo (todo , todotype , todostatus , tododate , tododesc) VALUES ($1 ,$2 ,$3 ,$4 ,$5) RETURNING *',
             [todo , todotype , todostatus , tododate , tododesc]
         )
         console.log(result.rows)
