@@ -3,9 +3,6 @@ import {DashCard , DashTabCard , CompleteSvg, PendingSvg, StreakSvg, ItemsInvent
 
 
 export default function DashCenter(){
-
-    const [value, onChange] = useState(new Date());
-
     return(
         <div className="dashCenter">
             <div className="dashCenterName">

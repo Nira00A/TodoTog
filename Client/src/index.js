@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {createBrowserRouter , Navigate, RouterProvider} from 'react-router-dom'
-import App from './App';
 import Layout from './Layout';
 import {Dashboard, Login} from './websiteComponent/index'
 import Signin from './websiteComponent/Signin/Signin';

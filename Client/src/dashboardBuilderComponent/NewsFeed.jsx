@@ -15,7 +15,7 @@ export default function NewsFeed(){
     )
 }
 
-function NewsTopStories({}){
+function NewsTopStories(){
 
     const [click , setClick] = useState()
 
@@ -99,7 +99,7 @@ function NewsTopStoriesCard({authorname , time , previewtext}){
 function NewsCard({img , name , title , text}){
     return(
         <div className="NewsCard">
-            <img height='100px' width='100px' src={img}/>
+            <img height='100px' width='100px' src={img} alt=""/>
         </div>
     )
 }

@@ -12,6 +12,7 @@ function Login(){
 
         try {
             const login = await authService.login({email , password})
+            console.log(login)
             setMessage('Login Successful')
             
         } catch (error) {

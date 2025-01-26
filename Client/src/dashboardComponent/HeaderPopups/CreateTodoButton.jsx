@@ -6,7 +6,7 @@ export default function CreateTodoButton({onClick}){
     const [tagName , setTagName] = useState()
     const [formData , setFormData] = useState({todo:"",todotype:"",todostatus:"false",tododate:`${new Date().toISOString().split('T')[0]}`,tododesc:""})
 
-    const handleChange = () =>{
+    const handleChange = (e) =>{
         setFormData({...formData ,[e.target.name]: e.target.value })
     }
 
@@ -21,7 +21,10 @@ export default function CreateTodoButton({onClick}){
 
     const handleTagClick = (tagName) =>{
         setTagName(tagName)
-        console.log(tagName)
+        setFormData({
+            ...formData,
+            todotype: tagName,
+        });
     }
 
     const handleCancelTagClick = () =>{
@@ -50,7 +53,7 @@ export default function CreateTodoButton({onClick}){
                     {tagName && <div className="flex pb-1"><Tags name={tagName} color='bg-gray-200' onTagClick={handleCancelTagClick}/></div>}
 
                     <form onSubmit={handleTodoSubmit}>
-                        <input name="todo"  type="text"
+                        <input name="todo" type="text" onChange={handleChange}
                         className="createButtonDiv bg-white rounded-xl border border-gray-300"/>
 
                         <div className="pt-2">
@@ -60,11 +63,10 @@ export default function CreateTodoButton({onClick}){
                                 <Tags name='Fitness' color='bg-gray-300' onTagClick={handleTagClick}/>
                                 <Tags name='Study' color='bg-gray-300' onTagClick={handleTagClick}/>
                                 <Tags name='Travel' color='bg-gray-300' onTagClick={handleTagClick}/>
-                                
                             </div>
                         </div>
 
-                        <textarea name="tododesc" type="text"
+                        <textarea name="tododesc" type="text" onChange={handleChange}
                         className="createDescButtonDiv p-2 bg-white rounded-xl border border-gray-300"
                         />
 

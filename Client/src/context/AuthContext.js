@@ -33,7 +33,7 @@ export const AuthProvider = ({children}) => {
 
     const logout = async() =>{
         try {
-            const loggedoutUser = await authService.logout()
+            await authService.logout()
             setUser(null)
         } catch (error) {
             setMessage('There is a problem in Logging out')

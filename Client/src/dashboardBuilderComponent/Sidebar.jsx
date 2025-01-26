@@ -7,7 +7,7 @@ export default function Sidebar(){
         const spread = document.getElementById(prop)
         
 
-        if (spread.style.display == 'flex'){
+        if (spread.style.display === 'flex'){
             spread.style.display = "none"
             
         }else{
