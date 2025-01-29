@@ -4,9 +4,9 @@ import authService from "../appwrite/authService";
 const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
-    const [user , setUser] = useState('')
+    const [user , setUser] = useState()
     const [message , setMessage] = useState('')
-    const [loading , setLoading] = useState(false)
+    const [loading , setLoading] = useState(true)
  
     useEffect(()=>{
         const checkedUserSession = async () =>{

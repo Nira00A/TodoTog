@@ -7,7 +7,7 @@ export const TodoContextProvider = ({children}) =>{
     const [todo , setTodo] = useState([])
 
     const addTodo = (todo) =>{
-        setTodo((prev) => [{id: Date.now() , ...todo} , ...prev])
+        setTodo((prev) => [{ ...todo} , ...prev])
     }
 
     const updateTodo = (id , todo) =>{
@@ -26,5 +26,5 @@ export const TodoContextProvider = ({children}) =>{
 }
 
 export const useTodo = () =>{
-    useContext(TodoContext)
+    return useContext(TodoContext)
 }

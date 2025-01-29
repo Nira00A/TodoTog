@@ -9,7 +9,8 @@ import { AuthProvider , useAuth } from './context/AuthContext';
 import ProtectedRoute from './websiteComponent/Protected/Protected';
 import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './dashboardBuilderComponent';
-import TaskPage from './dashboardBuilderComponent/Pages/TaskPage';
+import {TaskPage , Tasks} from './dashboardBuilderComponent/Pages/TaskPage';
+import { TodoContextProvider } from './context/TodoContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -41,7 +42,7 @@ const AppRoutes = () =>{
             element: <DashboardLayout/>,
             children:[
               {
-                path: '/dashboard/dashcenter',
+                path: '/dashboard',
                 element: <DashCenter/>
               },
               {
@@ -63,7 +64,9 @@ const AppRoutes = () =>{
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <AppRoutes/>
+      <TodoContextProvider>
+        <AppRoutes/>
+      </TodoContextProvider>
     </AuthProvider>
   </React.StrictMode>
 );

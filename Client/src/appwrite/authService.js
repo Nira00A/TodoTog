@@ -12,9 +12,6 @@ export class AuthService{
     }
 
     async createAccount({Id , useremail , userpassword , username}){
-        
-        console.log("Appwrite URL:", process.env.REACT_APP_APPWRITE_URL);
-        console.log("Project ID:", process.env.REACT_APP_APPWRITE_PROJECT_ID);
 
         try {
             const account = await this.account.create(

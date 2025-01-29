@@ -1,4 +1,4 @@
-import CreateTodoButton from "./HeaderPopups/CreateTodoButton";
+import {CreateTodoButton , Tags} from "./HeaderPopups/CreateTodoButton";
 import ProfileButton from "./HeaderPopups/ProfileButton";
 import DashCard from "./DashCenterComponents/DashCard";
 import { ItemsInventory } from "./DashCenterComponents/ItemsInventory";
@@ -7,4 +7,4 @@ import DashTabCard from "./DashCenterComponents/DashTabCard";
 import {CompleteSvg , PendingSvg , StreakSvg} from "./SvgFolder/Svg";
 import MessagePopup from "./HeaderPopups/MessagePopup";
 
-export {CreateTodoButton , ProfileButton , DashCard , DashTabCard ,  CompleteSvg , PendingSvg , StreakSvg , ItemsInventory , MessagePopup , DashTab}
+export {CreateTodoButton , ProfileButton , DashCard , DashTabCard ,  CompleteSvg , PendingSvg , StreakSvg , ItemsInventory , MessagePopup , DashTab , Tags}

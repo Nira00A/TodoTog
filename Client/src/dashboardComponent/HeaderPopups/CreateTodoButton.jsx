@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios"
 
-export default function CreateTodoButton({onClick}){
+export function CreateTodoButton({onClick}){
 
     const [tagName , setTagName] = useState()
-    const [formData , setFormData] = useState({todo:"",todotype:"",todostatus:"false",tododate:`${new Date().toISOString().split('T')[0]}`,tododesc:""})
+    const [formData , setFormData] = useState({todo:"",todotype:"",tododate:`${new Date().toISOString().split('T')[0]}`,tododesc:""})
 
     const handleChange = (e) =>{
         setFormData({...formData ,[e.target.name]: e.target.value })
@@ -81,13 +81,11 @@ export default function CreateTodoButton({onClick}){
     )
 }
 
-function Tags({name , color , onTagClick}){ 
+export function Tags({name , color , fontColor ,  onTagClick}){ 
 
     return(
         <div>
-            <div
-            onClick={() => onTagClick(name)}
-            className={`h-6 w-auto pl-2 pr-2 text-xs flex justify-center items-center rounded-xl cursor-pointer ${color} hover:brightness-75 active:-translate-y-1`}>
+            <div onClick={() => onTagClick([name , color])} style={{backgroundColor: color , color:"white"}} className={`tag-style`}>
                 {name}
             </div>
         </div>

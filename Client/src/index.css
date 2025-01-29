@@ -93,6 +93,20 @@ body{
     margin-top: 10px;
 }
 
+.tag-style{
+    display: inline-flex;
+    border-radius: 9999px;
+    max-width: 100%;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.tag-style:hover{
+    opacity: 80%;
+}
+
 /*ProfileButton css*/
 
 .profileOpenButtonDiv {
@@ -207,6 +221,7 @@ body{
 
 .dashCenter{
     display: flex;
+    padding: 10px;
     flex-direction: column;
     min-width: 80%;
     width: 100%;
@@ -303,7 +318,6 @@ body{
 
 .main-content {
     flex: 1;
-    padding: 20px;
     background-color:#EEEEEE; 
 }
 
@@ -413,4 +427,128 @@ body{
     .Newsfeed{
         display: none;
     }
+}
+
+/*-----------------------------------------------*/
+/*Task page*/
+
+.task-container{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    display:flex;
+    overflow-y: scroll;
+}
+
+.task-child{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.task-title-header{
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-title{
+    color: var(--deepgray1);
+    margin-bottom: 30px;
+    font-size: 30px;
+    width: 100%;
+}
+
+.task-input{
+    height: 40px;
+    width: 600px;
+    border-radius: 20px;
+    padding: 15px;
+    padding-left: 35px;
+    outline: none;
+    border: 1px solid var(--deepgray1);
+    position: relative;
+}
+
+.task-button-1{
+    background-color: #d9dadb;
+    padding: 6px;
+    font-size: 15px;
+    border-radius: 19px;
+    margin-left: 8px;
+}
+
+.input-main{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.task-div{
+    height: auto;
+    width: 600px;
+    padding: 3px;
+    background-color: rgb(121, 121, 9);
+}
+
+.task-div-child{
+    height: fit-content;
+    padding: 10px 10px 5px 10px;
+    background-color: white;
+    border-radius: 10px 0 0 0;
+}
+
+.task-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.task-tags{
+    margin: 10px 0 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    gap: 5px;
+    transition: all 10 ease-in-out;
+}
+
+.task-input-tag{
+    position: absolute;
+    top: -30px;
+    
+}
+
+.more-button{
+    border-radius: 9999px;
+    background-color: lightgray;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.task-length-limit{
+    display: flex;
+    justify-content: space-between;
+    margin:0 70px 0 12px;
+
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--deepgray1);
+}
+
+/*Task-Svg*/
+.task-svg-1{
+    position: absolute;
+    top: 20%;
+    left: 10px;
+    pointer-events: none;
+}
+
+.task-svg-2{
+    cursor: pointer;
+
 }
