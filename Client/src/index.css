@@ -446,7 +446,8 @@ body{
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .task-title-header{
@@ -461,6 +462,12 @@ body{
     margin-bottom: 30px;
     font-size: 30px;
     width: 100%;
+}
+
+.task-body{
+    overflow-y: scroll;
+    height: auto;
+    margin: 0 63px 0 0;
 }
 
 .task-input{
@@ -489,9 +496,10 @@ body{
 }
 
 .task-div{
-    height: auto;
+    height: max-content;
     width: 600px;
     padding: 3px;
+    margin-bottom: 10px;
     background-color: rgb(121, 121, 9);
 }
 
@@ -538,6 +546,27 @@ body{
     font-size: 13px;
     font-weight: 500;
     color: var(--deepgray1);
+}
+
+.task-content-todo{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.update-input{
+    width: 100%;
+    overflow-y: auto;
+    resize:vertical;
+    min-height: 4rem;
+}
+
+.update-input-button{
+    width: 50px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    cursor: pointer;
+    border-radius: 50px;
 }
 
 /*Task-Svg*/

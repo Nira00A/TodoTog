@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTodo } from "../../context/TodoContext";
 import { Tags } from "../../dashboardComponent/index.js";
-import axios from "axios";
 
 export function TaskPage(){
 
-    const {addTodo , updateTodo , deleteTodo} = useTodo()
+    const {getTodo , submitTodo , todos , form , setForm , refresh} = useTodo()
+
+    /*Wordlimit usestate*/
     const [wordLimit , setWordLimit] = useState('')
+
+    /*Extentable usestate*/
     const [isExtentable , setIsExtentable] = useState(false)
+
+    /*This usestates are related to form submmition*/
     const [tag , setTag] = useState('')
-    const [form , setForm] = useState({todo:"" , todotype: tag , tododate:`${new Date().toISOString().split('T')[0]}` , tododesc:"" , todocolor:""})
+    
+    /*Tags List*/
     const tags = [
         { name: "Work", color: "#6b7280" },        // Gray
         { name: "Personal", color: "#2563eb" },    // Blue
@@ -34,47 +40,32 @@ export function TaskPage(){
         { name: "Treat", color: "#e11d48" },       // Rose
         { name: "Weekend", color: "#84cc16" }      // Lime
       ];
+    const visibleTags = isExtentable ? tags : tags.slice(0,5)
       
+    useEffect(() =>{
+       getTodo()
+    }, [refresh])
 
-    const handleSubmitButton = async (e) =>{
-        e.preventDefault()
-        
-        if(!form.todo) return
-
-        try {
-            await axios.post('http://localhost:4000/todosubmit' , 
-                {todo: form.todo ,
-                todotype: form.todotype ,
-                tododate: form.tododate ,
-                tododesc: form.tododesc,
-                todocolor: form.todocolor
-                })
-            console.log("sfsssfs")
-        } catch (error) {
-            console.log('Error while Posting the Todos' , error)
-        }
-    }
-
+    /*Handle change which will update the Form state*/
     const handleChnage = (e) =>{
         const {name , value} = e.target
         setForm({...form , [name] : value})
-        setWordLimit(value.trim().length === 0 ? 0 : value.trim().length);  
+        setWordLimit(value.trim().length === 0 ? 0 : value.trim().length);
     }
       
+    /*Handle Tag click*/
     const handleTagClick = (tagname) =>{
         setTag(tagname)
         setForm({...form , todotype: `${tagname[0]}` , todocolor: `${tagname[1]}`})
     }
 
+    /*Handle more button for extra tag options*/
     const handleMoreButtonClick = () =>{
         setIsExtentable((prev) => !prev)
     }
-
     const handleCancelTagClick = () =>{
         setTag([])
-    }
-
-    const visibleTags = isExtentable ? tags : tags.slice(0,5)
+    } 
 
     return(
         <div className="task-container">
@@ -84,12 +75,12 @@ export function TaskPage(){
                         #Task
                     </div>
                     <div className="input-main">
-                        <form onSubmit={handleSubmitButton} className="parent flex flex-col relative">
+                        <form onSubmit={submitTodo} className="parent flex flex-col relative">
                             <div className="relative">
                                 <div className="task-input-tag">
                                     <Tags name={tag[0]} color={tag[1]} onTagClick={handleCancelTagClick}/>
                                 </div>
-                                <input onChange={handleChnage} name="todo" placeholder="Enter your task here..." color="gray" className="task-input column"/>
+                                <input onChange={handleChnage} name="todo" placeholder="Enter your task here..." autoComplete="off" color="gray" className="task-input column"/>
                                 
                                 <div className="absolute task-svg-1 column">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
@@ -116,27 +107,60 @@ export function TaskPage(){
                             </div>
                         </div>
                         <div className="task-tags">
-                                {visibleTags.map((tag) =>
-                                    <Tags name={tag.name} color={tag.color} onTagClick={handleTagClick}/>
-                                )}
-                                {tags.length > 5 && (
-                                    <div className="more-button" onClick={handleMoreButtonClick}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                                        viewBox="0 -960 960 960" width="34px" fill="gray"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
-                                    </div>
-                                )}
+                            {visibleTags.map((tag , key) =>
+                                <Tags key={key} name={tag.name} color={tag.color} onTagClick={handleTagClick}/>
+                            )}
+                            {tags.length > 5 && (
+                                <div className="more-button" onClick={handleMoreButtonClick}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                                    viewBox="0 -960 960 960" width="34px" fill="gray"><path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/></svg>
+                                </div>
+                            )}
                         </div>
                     </div>
-                    <div>
-                        <Tasks todo={form.todo} color={form.todocolor} type={form.todotype} tododesc={form.tododesc} tododate={form.tododate}/> 
-                    </div>
+                </div>
+                <div className="task-body">
+                    {todos.length > 0 ?(
+                        <div>
+                            {todos.map((todo , key)=>(
+                            <Tasks id={todo.id} todo= {todo.todo} color={todo.todocolor} type={todo.todotype} tododesc={todo.tododesc} tododate={todo.tododate} todos={todos}/> 
+                            ))}
+                        </div>
+                    ): 
+                    (
+                        <div className="text-neutral-400 mt-40 mb-40 text-center flex-col items-center pointer-events-none select-none">
+                            <div className="flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" 
+                                width="50px" fill="lightgray"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h280v-480H160v480Zm360 0h280v-480H520v480Zm-320-80h200v-80H200v80Zm0-120h200v-80H200v80Zm0-120h200v-80H200v80Zm360 240h200v-80H560v80Zm0-120h200v-80H560v80Zm0-120h200v-80H560v80ZM440-240v-480 480Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                No todos? Maybe it's a sign to create something awesome.<br/>
+                                Lets start some new todos...
+                            </div>
+                        </div> 
+                    )
+                    }
                 </div>
             </div>
         </div>
     )
 }
 
-export function Tasks({todo , color , type , tododesc , tododate }){
+export function Tasks({id , todo , color , type , tododesc , tododate}){
+
+    const {updateTodo , deleteTodo , editingId , setEditingId} = useTodo()
+
+    /*Update usestate*/
+    const [updatedTodo , setUpdatedTodo] = useState(todo)
+
+    /*Handle Update Button*/
+    const handleEdit = (taskId) => {
+        setEditingId(taskId === editingId ? null : taskId); 
+        setUpdatedTodo(todo); 
+      };
+
+
     return(
         <div style={{backgroundColor: `${color}`}} className="task-div">
             <div className="task-div-child">
@@ -145,19 +169,30 @@ export function Tasks({todo , color , type , tododesc , tododate }){
                         <div>
                             <Tags name={type} color={color}/>
                         </div>
-                        <div className="task-svg-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="24px" fill="gray"><path d="M160-400v-80h280v80H160Zm0-160v-80h440v80H160Zm0-160v-80h440v80H160Zm360 560v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"/></svg>
-                        </div>
                     </div>
                     <div className="task-content">
-                        {todo}
+                        {editingId !== id ?(
+                        <div className="task-content-todo"> 
+                            {todo}
+                        </div>) :(
+                        <div>
+                            <textarea value={updatedTodo} onChange={(e) => setUpdatedTodo(e.target.value)} className="update-input" role="textbox" name="update"/>
+                            
+                        </div>                                                                                                                                              
+                        )}
                     </div>
                 </div>
                 <div className="task-options">
+                    {editingId === id && (
+                        <input className="update-input-button" value="save" type="button" onClick={() => updateTodo(updatedTodo , id)}/>
+                    ) }
+                    <div onClick={()=>handleEdit(id)} className="task-svg-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="24px" fill="gray"><path d="M160-400v-80h280v80H160Zm0-160v-80h440v80H160Zm0-160v-80h440v80H160Zm360 560v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"/></svg>
+                    </div>
                     <div className="task-svg-2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="gray"><path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
                     </div>
-                    <div className="task-svg-2">
+                    <div onClick={() => deleteTodo(id)} className="task-svg-2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                     </div>
                 </div>
