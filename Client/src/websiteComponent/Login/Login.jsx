@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import {Link, } from 'react-router-dom'
-import authService from "../../appwrite/authService";
+import { useAuth } from "../../context/AuthContext";
 
 function Login(){
     const [message , setMessage] = useState()
     const [email , setUseremail] = useState('')
     const [password , setUserpassword] = useState('')
+    const {login} = useAuth()
 
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
-            const login = await authService.login({email , password})
-            console.log(login)
+            const response = await login({email , password})
+            console.log(response)
             setMessage('Login Successful')
             
         } catch (error) {
@@ -62,7 +63,7 @@ function Login(){
                         Login
                     </div>
                     <div className="text-neutral-400 text-sm">
-                        Do you want to login? or <Link to='/signin' className="text-blue-500">sign-in</Link>
+                        Do you want to login? or <Link to='/register' className="text-blue-500">Register</Link>
                     </div>
                     <form className="flex-row pt-8" onSubmit={handleLogin}>
                         <div><input 

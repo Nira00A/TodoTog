@@ -1,32 +1,33 @@
 import React, { useState } from "react";
-import {Link , Navigate} from 'react-router-dom'
+import {Link , Navigate , useNavigate} from 'react-router-dom'
 import { useAuth } from "../../context/AuthContext";
-import authService from "../../appwrite/authService";
-import { ID } from "appwrite";
 
-function Signin(){
-    const {user} = useAuth()
+function Register(){
+    const {user , register} = useAuth()
     const [useremail , setUseremail] = useState('')
     const [userpassword , setUserpassword] = useState('')
     const [username , setUsername] = useState('')
+    const navigate = useNavigate()
 
-    const handleSignin = async(e)=>{
+    const handleRegister = async(e)=>{
         e.preventDefault()
-        console.log(useremail)
 
-        const id = ID.unique()
+        const token = localStorage.getItem('token')
+        console.log(useremail , token)
 
         try {
-            const createAccount = await authService.createAccount({Id : id ,useremail , userpassword , username})
-            if (user){
-                <Navigate to='/dashboard'/>
-            }
-            else{
-                <Navigate to='/login'/>
-            }
-            console.log(createAccount)
+            const createAccount = await register({username , useremail , userpassword})
+            console.log(createAccount , user)
+
         } catch (error) {
             console.log('This error occured in sign-in.js file' , error)
+        }
+
+        if (token){
+            navigate('/dashboard')
+        }
+        else{
+            navigate('/login')
         }
         
     }
@@ -68,12 +69,12 @@ function Signin(){
                     }}
                 >
                     <div className="text-3xl text-white font-bold pt-8">
-                        Sign-in
+                        Register
                     </div>
                     <div className="text-neutral-400 text-sm">
-                        Do you want to Sign-in? or <Link to='/' className="text-blue-500">login</Link>
+                        Do you want to Register? or <Link to='/login' className="text-blue-500">login</Link>
                     </div>
-                    <form className="flex-row pt-8" onSubmit={handleSignin}>
+                    <form className="flex-row pt-8" onSubmit={handleRegister}>
                         <div><input 
                                 style={{
                                     height:'40px',
@@ -145,4 +146,4 @@ function Signin(){
     )
 }
 
-export default Signin
+export default Register

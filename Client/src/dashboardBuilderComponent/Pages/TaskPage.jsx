@@ -4,7 +4,7 @@ import { Tags } from "../../dashboardComponent/index.js";
 
 export function TaskPage(){
 
-    const {getTodo , submitTodo , todos , form , setForm , refresh} = useTodo()
+    const {getTodo , submitTodo , todos , form , setForm } = useTodo()
 
     /*Wordlimit usestate*/
     const [wordLimit , setWordLimit] = useState('')
@@ -44,7 +44,7 @@ export function TaskPage(){
       
     useEffect(() =>{
        getTodo()
-    }, [refresh])
+    }, [])
 
     /*Handle change which will update the Form state*/
     const handleChnage = (e) =>{
@@ -62,6 +62,7 @@ export function TaskPage(){
     /*Handle more button for extra tag options*/
     const handleMoreButtonClick = () =>{
         setIsExtentable((prev) => !prev)
+        console.log(todos)
     }
     const handleCancelTagClick = () =>{
         setTag([])
@@ -121,25 +122,25 @@ export function TaskPage(){
                 </div>
                 <div className="task-body">
                     {todos.length > 0 ?(
-                        <div>
-                            {todos.map((todo , key)=>(
-                            <Tasks id={todo.id} todo= {todo.todo} color={todo.todocolor} type={todo.todotype} tododesc={todo.tododesc} tododate={todo.tododate} todos={todos}/> 
-                            ))}
-                        </div>
-                    ): 
-                    (
-                        <div className="text-neutral-400 mt-40 mb-40 text-center flex-col items-center pointer-events-none select-none">
-                            <div className="flex justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" 
-                                width="50px" fill="lightgray"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h280v-480H160v480Zm360 0h280v-480H520v480Zm-320-80h200v-80H200v80Zm0-120h200v-80H200v80Zm0-120h200v-80H200v80Zm360 240h200v-80H560v80Zm0-120h200v-80H560v80Zm0-120h200v-80H560v80ZM440-240v-480 480Z"/>
-                                </svg>
-                            </div>
                             <div>
-                                No todos? Maybe it's a sign to create something awesome.<br/>
-                                Lets start some new todos...
+                                {todos.map((todo , key)=>(
+                                <Tasks id={todo.id} todo= {todo.todo} color={todo.todocolor} type={todo.todotype} tododesc={todo.tododesc} tododate={todo.tododate} todos={todos}/> 
+                                ))}
                             </div>
-                        </div> 
-                    )
+                        ): 
+                        (
+                            <div className="text-neutral-400 mt-40 mb-40 text-center flex-col items-center pointer-events-none select-none">
+                                <div className="flex justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" 
+                                    width="50px" fill="lightgray"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h280v-480H160v480Zm360 0h280v-480H520v480Zm-320-80h200v-80H200v80Zm0-120h200v-80H200v80Zm0-120h200v-80H200v80Zm360 240h200v-80H560v80Zm0-120h200v-80H560v80Zm0-120h200v-80H560v80ZM440-240v-480 480Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    No todos? Maybe it's a sign to create something awesome.<br/>
+                                    Lets start some new todos...
+                                </div>
+                            </div> 
+                        )
                     }
                 </div>
             </div>

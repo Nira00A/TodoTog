@@ -4,13 +4,14 @@ import './index.css';
 import {createBrowserRouter , Navigate, RouterProvider} from 'react-router-dom'
 import Layout from './Layout';
 import {Dashboard, Login} from './websiteComponent/index'
-import Signin from './websiteComponent/Signin/Signin';
+import Signin from './websiteComponent/Register/Register';
 import { AuthProvider , useAuth } from './context/AuthContext';
 import ProtectedRoute from './websiteComponent/Protected/Protected';
 import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './dashboardBuilderComponent';
 import {TaskPage , Tasks} from './dashboardBuilderComponent/Pages/TaskPage';
 import { TodoContextProvider } from './context/TodoContext';
+import Register from './websiteComponent/Register/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -25,11 +26,11 @@ const AppRoutes = () =>{
         children:[
           {
             path: '/login',
-            element: user ? <Navigate to='/dashboard/dashcenter'/> : <Login/>
+            element: user ? <Navigate to='/dashboard'/> : <Login/>
           },
           {
-            path:`/signin`,
-            element:<Signin/>
+            path:`/register`,
+            element:<Register/>
           }
         ]
       },
