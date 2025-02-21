@@ -31,13 +31,115 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { 
-      maxAge: 1000 * 60 * 60, 
+      maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      secure: false, 
+      sameSite: "lax",
     },
   })
 );
 
 // Routes
+/* Checksession */
+app.get("/checksession", (req, res) => {
+  if (req.session.user_id) {
+    return res.json({ 
+      userid: req.session.user_id,
+     });
+  } else {
+    return res.status(401).json({ error: "No session found" });
+  }
+});
+
+/* Signup */
+app.post("/register", async (req, res) => {
+  const { username, useremail, userpassword } = req.body;
+
+  try {
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+      useremail,
+    ]);
+    const isUser = result.rows[0];
+
+    if (!username || !useremail || !userpassword) {
+      return res.json({
+        message: "Enter all the requirements",
+      });
+    }
+
+    if (isUser) {
+      return res.json({
+        message: "The user already exist",
+      });
+    }
+
+    const hashedPass = await bcrypt.hash(userpassword, 10);
+    const account = await pool.query(
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
+      [username, useremail, hashedPass]
+    );
+    const user_id = account.rows[0].id
+
+    req.session.user_id = user_id;
+    req.session.isAuthenticated = true;
+
+    res.status(201).json({
+      message: "User created successfully!",
+      userid: user_id
+    });
+  } catch (error) {
+    res.status(500).json({ error: "User already exists or server issue" });
+  }
+});
+
+/* Login */
+app.post("/login", async (req, res) => {
+  const { useremail, userpassword } = req.body;
+
+  try {
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+      useremail,
+    ]);
+    const user = result.rows[0];
+    const user_id = result.rows[0].id
+
+    if (!user) {
+      return res.status(404).json({ error: "User does not exist" });
+    }
+
+    const isMatch = await bcrypt.compare(userpassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    req.session.user_id = user_id;
+    req.session.isAuthenticated = true;
+
+    console.log("Session After Login:", req.session);
+
+    res.json({ 
+      message: "Login successful",
+      userid: user_id,
+     });
+    
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+/* Logout */
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.status(500).json({ error: "Logout failed" });
+    }
+
+    res.clearCookie("connect.sid");
+    res.status(200).json({ message: "Logged out successfully" });
+  });
+});
+
 /* Get Todos */
 app.get("/gettodo", async (req, res) => {
   try {
@@ -61,6 +163,23 @@ app.get("/gettodo", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+/* Get Todos By Tag */
+app.post('/gettag', async (req,res)=>{
+  const user_id = req.session.user_id
+  const {tags} = req.body
+
+  if (!user_id){
+    res.status(404).json({error:'User not found'})
+  }
+
+  try {
+    const result = await pool.query("SELECT * FROM usertodo WHERE todotype = $1" , [tags])
+    res.status(200).json(result.rows)
+  } catch (error) {
+    res.status(404).json({error:'Unable to fetch todos'})
+  }
+})
 
 /* Submit a Todo */
 app.post("/todosubmit", async (req, res) => {
@@ -115,90 +234,6 @@ app.delete("/tododelete/:id", async (req, res) => {
     console.log("Error deleting todo:", error);
     res.status(500).json({ error: "Server error" });
   }
-});
-
-/* Signup */
-app.post("/register", async (req, res) => {
-  const { username, useremail, userpassword } = req.body;
-
-  try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      useremail,
-    ]);
-    const isUser = result.rows[0];
-
-    if (!username || !useremail || !userpassword) {
-      return res.json({
-        message: "Enter all the requirements",
-      });
-    }
-
-    if (isUser) {
-      return res.json({
-        message: "The user already exist",
-      });
-    }
-
-    const hashedPass = await bcrypt.hash(userpassword, 10);
-    const account = await pool.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-      [username, useremail, hashedPass]
-    );
-    const user_id = account.rows[0].id
-
-    req.session.user_id = user_id;
-    req.session.isAuthenticated = true;
-
-    res.status(201).json({
-      message: "User created successfully!",
-    });
-  } catch (error) {
-    res.status(500).json({ error: "User already exists or server issue" });
-  }
-});
-
-/* Login */
-app.post("/login", async (req, res) => {
-  const { useremail, userpassword } = req.body;
-
-  try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      useremail,
-    ]);
-    const user = result.rows[0];
-
-    if (!user) {
-      return res.status(404).json({ error: "User does not exist" });
-    }
-
-    const isMatch = await bcrypt.compare(userpassword, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid password" });
-    }
-
-    
-    req.session.user_id = user.id;
-    req.session.isAuthenticated = true;
-
-    res.json({ message: "Login successful" });
-    
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-/* Logout */
-app.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Logout error:", err);
-      return res.status(500).json({ error: "Logout failed" });
-    }
-
-    res.clearCookie("connect.sid");
-    res.status(200).json({ message: "Logged out successfully" });
-  });
 });
 
 /* Start the Server */
