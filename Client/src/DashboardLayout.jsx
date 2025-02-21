@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { DashHeader, NewsFeed, Sidebar } from "./dashboardBuilderComponent";
+import { DashHeader, NewsFeed, Sidebar } from "./websiteComponent/Dashboard/index";
 
 function DashboardLayout() {
 
     const location = useLocation()
-    const isTaskPage = location.pathname.includes('/task')
+    const isDashPage = location.pathname.endsWith('/dashboard')
 
     return (
         <div className="dashboard-layout">
@@ -19,7 +19,7 @@ function DashboardLayout() {
                 <main className="main-content">
                     <Outlet />
                 </main>
-                { !isTaskPage &&
+                { isDashPage &&
                 <div className="news-feed">
                     <NewsFeed />
                 </div>

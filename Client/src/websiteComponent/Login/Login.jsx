@@ -4,15 +4,15 @@ import { useAuth } from "../../context/AuthContext";
 
 function Login(){
     const [message , setMessage] = useState()
-    const [email , setUseremail] = useState('')
-    const [password , setUserpassword] = useState('')
+    const [useremail , setUseremail] = useState('')
+    const [userpassword , setUserpassword] = useState('')
     const {login} = useAuth()
 
     const handleLogin = async (e) => {
         e.preventDefault()
 
         try {
-            const response = await login({email , password})
+            const response = await login({ useremail, userpassword })
             console.log(response)
             setMessage('Login Successful')
             

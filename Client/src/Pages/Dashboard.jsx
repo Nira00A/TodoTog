@@ -1,5 +1,5 @@
 import React from "react";
-import {Sidebar,DashHeader,NewsFeed,DashCenter} from "../../dashboardBuilderComponent/index.js";
+import {Sidebar,DashHeader,NewsFeed,DashCenter} from "../websiteComponent/Dashboard/index";
 
 function Dashboard(){
     return(

@@ -1,4 +1,4 @@
 import Login from "./Login/Login";
-import Dashboard from "./Dashboard/Dashboard";
+import { Dashboard } from "../Pages";
 
 export {Login , Dashboard}

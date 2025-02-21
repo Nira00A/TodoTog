@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useTodo } from "../../context/TodoContext";
-import { Tags } from "../../dashboardComponent/index.js";
+import { useTodo } from "../context/TodoContext.js";
+import { Tags } from "../dashboardComponent/index.js";
 
 export function TaskPage(){
 
@@ -124,7 +124,7 @@ export function TaskPage(){
                     {todos.length > 0 ?(
                             <div>
                                 {todos.map((todo , key)=>(
-                                <Tasks id={todo.id} todo= {todo.todo} color={todo.todocolor} type={todo.todotype} tododesc={todo.tododesc} tododate={todo.tododate} todos={todos}/> 
+                                <Tasks id={todo.id} todo= {todo.todo} color={todo.todocolor} type={todo.todotype} tododesc={todo.tododesc} tododate={todo.tododate}/> 
                                 ))}
                             </div>
                         ): 

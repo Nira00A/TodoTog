@@ -18,7 +18,6 @@ export function CreateTodoButton({onClick}){
         }
     }
 
-
     const handleTagClick = (tagName) =>{
         setTagName(tagName)
         setFormData({
@@ -50,7 +49,7 @@ export function CreateTodoButton({onClick}){
                         Create Todo:
                     </div>
 
-                    {tagName && <div className="flex pb-1"><Tags name={tagName} color='bg-gray-200' onTagClick={handleCancelTagClick}/></div>}
+                    {tagName && <div className="flex pb-1"><Tags name={tagName} onTagClick={handleCancelTagClick}/></div>}
 
                     <form onSubmit={handleTodoSubmit}>
                         <input name="todo" type="text" onChange={handleChange}
@@ -82,7 +81,6 @@ export function CreateTodoButton({onClick}){
 }
 
 export function Tags({name , color , fontColor ,  onTagClick}){ 
-
     return(
         <div>
             <div onClick={() => onTagClick([name , color])} style={{backgroundColor: color , color:"white"}} className={`tag-style`}>

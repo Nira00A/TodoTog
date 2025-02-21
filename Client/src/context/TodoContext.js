@@ -80,8 +80,20 @@ export const TodoContextProvider = ({children}) =>{
         }
     }
 
+    const getTodoById = async (tag) =>{
+        try {
+            const response = await axios.post('http://localhost:4000/gettag' , 
+                {
+                    tags : tag
+                })
+            return response.data
+        } catch (error) {
+            console.log('Error while fetching records', error)
+        }
+    }
+
     return(
-        <TodoContext.Provider value={{form , setForm , todos , setTodos , todoList , setTodoList , editingId , setEditingId , getTodo , submitTodo , updateTodo , deleteTodo}}>
+        <TodoContext.Provider value={{form , setForm , todos , setTodos , todoList , setTodoList , editingId , setEditingId , getTodo , getTodoById , submitTodo , updateTodo , deleteTodo}}>
             {children}
         </TodoContext.Provider>
     )

@@ -1,5 +1,7 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useState, useContext , useEffect} from "react";
 import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const AuthContext = createContext();
 
@@ -8,21 +10,27 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    axios.get("http://localhost:4000/checksession", {withCredentials: true})
+      .then((res) => setUser(res.data.userid))
+      .catch(() => console.log("No active session"));
+  }, []);
+  
+
   const register = async ({ username, useremail, userpassword }) => {
     try {
-      const response = await axios.post('http://localhost:4000/register', { username, useremail, userpassword });
-      setUser(response.data);
-      console.log(response.data.message)
+      const response = await axios.post('http://localhost:4000/register', { username, useremail, userpassword }, {withCredentials: true});
+      setUser(response.data.userid);
     } catch (error) {
       setMessage(error.response?.data?.message || 'Invalid signup. Check email or password.');
       console.log("Error")
     }
   };
 
-  const login = async ({ email, password }) => {
+  const login = async ({ useremail, userpassword }) => {
     try {
-      const response = await axios.post('http://localhost:4000/login', { email, password });
-      setUser(response.data);
+      const response = await axios.post('http://localhost:4000/login', { useremail, userpassword } , {withCredentials: true});
+      setUser(response.data.userid)
     } catch (error) {
       setMessage(error.response?.data?.message || 'Invalid login. Check email or password.');
     }

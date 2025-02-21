@@ -12,6 +12,9 @@ module.exports = {
         'blue1':'#016FB9',
         'deepgray1':'#353531',
       },
+      fontSize: {
+        'xs': '13px',
+      },
     },
   },
   plugins: [],
