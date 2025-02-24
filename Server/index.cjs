@@ -115,8 +115,6 @@ app.post("/login", async (req, res) => {
     req.session.user_id = user_id;
     req.session.isAuthenticated = true;
 
-    console.log("Session After Login:", req.session);
-
     res.json({ 
       message: "Login successful",
       userid: user_id,
