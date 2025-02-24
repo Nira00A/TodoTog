@@ -10,7 +10,7 @@ import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './websiteComponent/Dashboard/index';
 import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
-import {TaskPage , RewardsPage , Dashboard } from './Pages/index.js'
+import {TaskPage , RewardsPage , Dashboard , Calendar} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -57,6 +57,10 @@ const AppRoutes = () =>{
               {
                 path:'/dashboard/profile',
                 element: <ProfilePage/>
+              },
+              {
+                path:'/dashboard/calendar',
+                element: <Calendar/>
               }
             ]
           },

@@ -72,7 +72,7 @@ export function TaskPage(){
         <div className="task-container">
             <div className="task-child">
                 <div className="task-title-header">
-                    <div className="task-title">
+                    <div className="heading mb-6">
                         #Task
                     </div>
                     <div className="input-main">
@@ -98,12 +98,12 @@ export function TaskPage(){
                         <div className="task-length-limit">
                             <div>
                                 {wordLimit === 0 && (
-                                    <div>
+                                    <div className="red">
                                         <span style={{color:'red'}}>*</span> Please fill out this feild
                                     </div>
                                 )}
                             </div>
-                            <div>
+                            <div className="text1">
                                 {wordLimit}/100
                             </div>
                         </div>

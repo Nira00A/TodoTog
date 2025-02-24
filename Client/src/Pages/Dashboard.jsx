@@ -1,5 +1,5 @@
 import React from "react";
-import {Sidebar,DashHeader,NewsFeed,DashCenter} from "../websiteComponent/Dashboard/index";
+import {Sidebar,DashHeader,DashCenter} from "../websiteComponent/Dashboard/index";
 
 function Dashboard(){
     return(
@@ -8,7 +8,6 @@ function Dashboard(){
             <div className="Dashboard-height">
                 <Sidebar />
                 <DashCenter />
-                <NewsFeed /> 
             </div>
             
         </div>

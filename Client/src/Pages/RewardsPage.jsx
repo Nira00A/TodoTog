@@ -6,15 +6,15 @@ export default function RewardsPage(){
             <div className="w-full h-full flex justify-center">
                 <div className="rewards-container">
                     <div>
-                        <div className="component-header-text ml-3">Achievements</div>
+                        <div className="heading ml-3 mt-12">Achievements</div>
                     </div>
                     <div className="mt-5">
                         <div className="flex justify-between">
                             <div>
-                                <div className="achievement-title ml-3">
+                                <div className="achievement-title text-md text-neutral-300 ml-3">
                                     General
                                 </div>
-                                <div className="achievement-count ml-3">
+                                <div className="achievement-count text-sm text-neutral-400 ml-3">
                                     0 out of 5 unlocked
                                 </div>
                             </div>
@@ -36,10 +36,10 @@ export default function RewardsPage(){
                     <div className="mt-5">
                         <div className="flex justify-between">
                             <div>
-                                <div className="achievement-title ml-3">
+                                <div className="achievement-title text-md text-neutral-300 ml-3">
                                     General
                                 </div>
-                                <div className="achievement-count ml-3">
+                                <div className="achievement-count text-sm text-neutral-400 ml-3">
                                     0 out of 5 unlocked
                                 </div>
                             </div>
@@ -58,13 +58,13 @@ export default function RewardsPage(){
                             <Badges name={'Joined'} tag={'tags'} desc={'This is a sample text'} date={'12/12/2012'}/>
                         </div>
                     </div>
-                    <div className="mt-5 mb-5">
+                    <div className="mt-5">
                         <div className="flex justify-between">
                             <div>
-                                <div className="achievement-title ml-3">
+                                <div className="achievement-title text-md text-neutral-300 ml-3">
                                     General
                                 </div>
-                                <div className="achievement-count ml-3">
+                                <div className="achievement-count text-sm text-neutral-400 ml-3">
                                     0 out of 5 unlocked
                                 </div>
                             </div>

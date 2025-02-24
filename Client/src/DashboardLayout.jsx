@@ -4,28 +4,21 @@ import { DashHeader, NewsFeed, Sidebar } from "./websiteComponent/Dashboard/inde
 
 function DashboardLayout() {
 
-    const location = useLocation()
-    const isDashPage = location.pathname.endsWith('/dashboard')
-
     return (
-        <div className="dashboard-layout">
-            <header className="dash-header">
-                <DashHeader />
-            </header>
-            <div className="dash-body">
-                <div className="sidebar">
+            <div className="flex">
+                <div className="">
                     <Sidebar />
                 </div>
-                <main className="main-content">
-                    <Outlet />
-                </main>
-                { isDashPage &&
-                <div className="news-feed">
-                    <NewsFeed />
+                <div className="w-full h-full">
+                    <header className="dash-header">
+                        <DashHeader />
+                    </header>
+                    <main className="main-content">
+                        <Outlet />
+                    </main>
                 </div>
-                }
             </div>
-        </div>
+        
     );
 }
 
