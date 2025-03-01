@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function Sidebar(){
     const [isMenuOpen , setIsMenuOpen] = useState(false)
-    const {logout} = useAuth()
     
     return(
         <div className="sidebar border-r h-full pt-6 relative">
@@ -26,7 +25,6 @@ export default function Sidebar(){
                     <div className="mt-5">
                         <Sidebaroptions to={'/dashboard'} optionName={'Dashboard'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>}/>
                         <Sidebaroptions to={'/dashboard/task'} optionName={'Task'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="m438-240 226-226-58-58-169 169-84-84-57 57 142 142ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>}/>
-                        <Sidebaroptions to={'/dashboard/notes'} optionName={'Notes'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="M120-240v-80h480v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>}/>
                         <Sidebaroptions to={'/dashboard/calendar'} optionName={'Calendar'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>}/>
                         <Sidebaroptions to={'/dashboard/reward'} optionName={'Rewards'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="M280-120v-80h160v-124q-49-11-87.5-41.5T296-442q-75-9-125.5-65.5T120-640v-40q0-33 23.5-56.5T200-760h80v-80h400v80h80q33 0 56.5 23.5T840-680v40q0 76-50.5 132.5T664-442q-18 46-56.5 76.5T520-324v124h160v80H280Zm0-408v-152h-80v40q0 38 22 68.5t58 43.5Zm200 128q50 0 85-35t35-85v-240H360v240q0 50 35 85t85 35Zm200-128q36-13 58-43.5t22-68.5v-40h-80v152Zm-200-52Z"/></svg>}/>
                         <Sidebaroptions to={'/dashboard/project'} optionName={'Projects'} svg={<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/></svg>}/>
@@ -41,36 +39,39 @@ export default function Sidebar(){
          
             <hr className="m-0"/>
 
-            <div className="sidebar-profile-div">
-                <div className="flex gap-1">
-                    <div className="h-8 w-8 bg-gray-500 cursor-pointer rounded-full">
-                    
-                    </div>
-                    <div>
-                        <div>
-                            Username
-                        </div>
-                        <div className="">
-                            useremail
-                        </div>
-                    </div>
-                </div>
-                
-                <div className="relative">
-                    <svg onClick={() => setIsMenuOpen((prev) => ! prev)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#888888"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
-                </div>
-                {isMenuOpen && (
-                <div style={{height: '100px' , width: '150px' , zIndex: '1002' , top: '-90px' , left: '220px' , backgroundColor: '#f5f5f5'}} className="z-50 absolute rounded-md shadow-md">
-                    <div>
-                        Logout
-                    </div>
-                    <div>
+            <div className="sidebar-profile-div text4">
+                <NavLink to={'/dashboard/profile'} className="flex items-center gap-1">
+                    <div style={{backgroundImage: `url()`}} className="h-6 w-6 rounded-full bg-neutral-700">
 
                     </div>
+                    <div className="flex-col">
+                        <div style={{fontSize: '12px'}}>Username</div>
+                        <div style={{fontSize: '10px'}}>useremail</div>
+                    </div>
+                </NavLink>
+                
+                <div className="relative">
+                    <svg onClick={() => setIsMenuOpen((prev) => ! prev)} xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#888888"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
                 </div>
-                )}
+                {isMenuOpen && ( <Menupopup />)}
             </div> 
         </div>    
+    )
+}
+
+function Menupopup(){
+    const {logout} = useAuth()
+    return(
+        <div style={{top: '-90px' , left: '220px' , backgroundColor: 'var(--popup-color)'}} className="z-50 absolute rounded-md shadow-md">
+            <div className='profile-options cursor-pointer'>
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" ><path fill="currentColor" d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240ZM330-120 120-330v-300l210-210h300l210 210v300L630-120H330Z"/></svg>
+                <div>Report</div>
+            </div>
+            <div onClick={logout} className='profile-options cursor-pointer'>
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="red"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                <div className="text-red-600">Logout</div>
+            </div>
+        </div>
     )
 }
 

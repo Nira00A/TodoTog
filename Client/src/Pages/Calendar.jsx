@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-export default function CalenderPage(){
+export function CalenderPage(){
     const date = new Date()
     const [zino , setZino] = useState(0)
     const [today , setToday] = useState('')
@@ -24,7 +24,7 @@ export default function CalenderPage(){
 
     return(
         <div className="calendar-container relative">
-            <div className="w-max mt-12 flex-col relative overflow-scroll">
+            <div className="w-max mt-3 flex-col relative overflow-scroll">
                 <div className="flex-col relative">
                     {/**Header of the calendar*/}
                     <div className="calendar-header">
@@ -59,7 +59,7 @@ export default function CalenderPage(){
                             </div>
                             {
                                 openCalendar && (
-                                    <Calendar/>
+                                    <Calendar isAbsolute={true}/>
                                 )
                             }
                             { Weekdays(zino).map((item)=> (
@@ -120,8 +120,7 @@ function Card({title , description , srt , end}){
 }
 
 /*Calendar Functions*/
-
-function Calendar(){
+export function Calendar({isAbsolute}){
     const {currentYear , currentMonth} = getCurrentDateInfo()
     const [Month , setMonth] = useState(currentMonth)
     const [Year , setYear] = useState(currentYear)
@@ -151,7 +150,7 @@ function Calendar(){
     })}
 
     return(
-        <div className="calendar-div pl-2 pr-2 text4">
+        <div className={`${isAbsolute ? 'absolute' : ''} calendar-div pl-2 pr-2 text4`}>
             <div className="h-max w-full mt-3 flex justify-between">
                 <div onClick={gotToPreviousMonth} className="flex items-center cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" fill="#d6d5d5"><path d="M576-240 336-480l240-240 51 51-189 189 189 189-51 51Z"/></svg>

@@ -10,7 +10,7 @@ import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './websiteComponent/Dashboard/index';
 import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
-import {TaskPage , RewardsPage , Dashboard , Calendar} from './Pages/index.js'
+import {TaskPage , RewardsPage , Dashboard , Calendar , CalenderPage} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -44,7 +44,7 @@ const AppRoutes = () =>{
             children:[
               {
                 path: '/dashboard',
-                element: <DashCenter/>
+                element: <Dashboard/>
               },
               {
                 path:'/dashboard/task',
@@ -60,7 +60,7 @@ const AppRoutes = () =>{
               },
               {
                 path:'/dashboard/calendar',
-                element: <Calendar/>
+                element: <CalenderPage />
               }
             ]
           },

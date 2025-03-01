@@ -6,7 +6,7 @@
 :root {
   --background-color: white;
   --header-color: white;
-  --sidebar-color: #FAFAFA;
+  --popup-color: #FAFAFA;
   --border-color: #e5e7eb;
   --overlay-color: #e0e0e0;
   --div-color: #e7e7e7;
@@ -26,7 +26,7 @@
 [data-theme = "dark"]{
   --background-color: #212121;
   --header-color: #212121;
-  --sidebar-color: #1D1D1D;
+  --popup-color: #1D1D1D;
   --border-color: #2C2C2C;
   --overlay-color: #2D2D2D;
   --div-color: #1a1a1a;
@@ -34,7 +34,18 @@
   --text4: white;
   --text5: black;
   --red: red;
-  --text1: #FAFAFA 
+}
+
+.background-color{
+  fill: var(--background-color);
+}
+
+.overlay-color{
+  background-color: var(--overlay-color);
+}
+
+.div-color{
+  background-color: var(--div-color);
 }
 
 .heading{
@@ -87,30 +98,6 @@ body {
   background-color: var(--header-color);
 }
 
-.searchbar {
-  height: 60px;
-  display: flex;
-  align-items: center;
-}
-
-.searchbarBox {
-  width: 25rem;
-  padding-left: 40px;
-  border-radius: 50px;
-  padding-top: 0.5rem;
-  padding-right: 10px;
-  padding-bottom: 0.5rem;
-  border-width: 1px;
-  border-style: solid;
-  border-color: lightslategray;
-}
-
-.iconsbar {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem;
-}
-
 .CompanyName {
   font-size: 1.5rem;
   font-weight: 600;
@@ -122,126 +109,57 @@ body {
   padding-bottom: 4px;
 }
 
-/*CreateButton css*/
+/*Dashboard css*/
 
-.createDiv {
-  font-size: 1.5rem;
+.dashboard-card{
+  height: 180px;
+  width: 280px;
+  display: grid;
+  color: var(--text4);
+  grid-template-rows: 60px 130px;
+  border-radius: 5px;
+  background-color: var(--div-color);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.createButtonDiv {
-  height: 40px;
-  width: 400px;
-  padding-left: 5px;
-}
-
-.createDescButtonDiv {
-  display: flex;
-  height: 230px;
-  width: 400px;
-  margin-top: 10px;
-}
-
-.tag-style {
-  display: inline-flex;
-  border-radius: 9999px;
-  max-width: 100%;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  color: #000000;
-}
-
-.tag-style:hover {
-  opacity: 80%;
+.dashboard-long-card{
+ height: 251px;
+ width: 570px;
+ border-radius: 5px;
+ background-color: var(--div-color);
+ box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 /*ProfileButton css*/
 
 .profileOpenButtonDiv {
-  background-color: white;
-  height: 300px;
-  width: 230px;
+  background-color: var(--popup-color);
+  height: auto;
+  width: 200px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-top: 60px;
   box-shadow: 10px black;
-  border-radius: 10px;
-  position: fixed;
+  border-radius: 5px;
+  position: absolute;
   top: 0;
-  right: 19px;
+  right: 8px;
+  color: var(--text4);
   z-index: 1000;
   user-select: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.profileButtonHeight {
-  width: 210px;
-  cursor: pointer;
-  height: 40px;
+.profile-options{
   display: flex;
-  align-items: center;
-  padding-left: 5px;
-}
-
-.profileButtonHeight:hover {
-  background-color: lightgray;
-}
-
-/*MessageButton css*/
-
-.messagepopup {
-  overflow: hidden;
-  background-color: white;
-  height: 300px;
-  width: 350px;
-  border-radius: 10px;
-  margin-top: 60px;
-  border: 1px solid var(--gray3);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  right: 60px;
-  z-index: 1000;
-  user-select: none;
-}
-
-.messagepopupDivide {
-  display: flex;
+  padding: 10px;
+  font-size: 12px;
   gap: 10px;
-}
-
-.messagepopupNotif {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  color: var(--gray3);
-  cursor: pointer;
-  height: 50px;
-  width: 90%;
 }
 
-.messagepopupNotif:hover {
-  border-top-left-radius: 10px;
-  background-color: #aaaaaa;
-}
-
-.messagepopupMess {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--gray3);
-  cursor: pointer;
-  height: 50px;
-  width: 90%;
-}
-
-.messagepopupMess:hover {
-  border-top-right-radius: 10px;
-  background-color: #aaaaaa;
-}
-
-.messagepopupItems {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.profile-options:hover{
+  background-color: var(--overlay-color);
 }
 
 /*DashCenter css*/
@@ -361,7 +279,7 @@ body {
   width: 250px;
   display: flex;
   flex-direction: column;
-  background-color: var(--sidebar-color);
+  background-color: var(--popup-color);
   height: 100vh;
   font-size: 12px;
   border-right: 1px solid var(--border-color);
@@ -403,7 +321,7 @@ body {
     gap: 8px;
     cursor: pointer;
     border-radius: 4px; 
-    background-color: var(--sidebar-color);
+    background-color: var(--popup-color);
     position: relative;
     padding: 12px; 
 }
@@ -450,13 +368,11 @@ body {
 
 /*-----------------------------------------------*/
 /*Task page*/
-
 .task-container {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
-  padding: 50px;
   display: flex;
   overflow-y: scroll;
 }
@@ -491,23 +407,28 @@ body {
 
 .task-input {
   height: 40px;
-  width: 600px;
+  width: 700px;
   border-radius: 20px;
   padding: 15px;
   padding-left: 35px;
   outline: none;
+  color: var(--text4);
   border: 1px solid var(--gray3);
-  background-color: var(--overlay-color);
+  background-color: var(--div-color);
   position: relative;
 }
 
 .task-button-1 {
-  background-color: var(--overlay-color);
-  color: var(--text1);
-  padding: 6px;
-  font-size: 15px;
-  border-radius: 10px;
+  background-color: var(--div-color);
+  color: var(--text4);
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 15px;
   margin-left: 8px;
+}
+
+.task-button-1:hover{
+  background-color: var(--div-color);
 }
 
 .input-main {
@@ -604,123 +525,47 @@ body {
 
 /*--------------------------------------------------------------------------------*/
 /* RewardsPage*/
-.rewards-container {
-  width: 55rem;
+.rewards-container1 {
+  width: 48rem;
   overflow-y: scroll;
 }
 
-/* Badge-component */
-
-.component-header-text {
-  font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  font-weight: 600;
-  color: var(--gray3);
-}
-
-.ml60 {
-  margin-left: 60px;
-}
-
-.badge-container {
-  padding: 10px;
-  display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.badge {
+.rewards-container2{
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 11.5rem;
-  width: 145px;
+  width: 22rem;
+  background-color: var(--overlay-color);
+  color: var(--text4);
+}
+
+/* Badge-component */
+.badge-body{
+  display: grid;
+  grid-template-columns: auto 90%;
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  color: var(--text4);
+  background-color: var(--div-color);
+}
+
+.badge-progress-bar{
+  height: 20px;
+  width: 100%;
   border-radius: 15px;
-  background-color: white;
-  cursor: pointer;
+  background-color: #000000;
+}
+
+.achievement-badge{
+  height: auto;
+  width: 150px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--div-color);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-.badge:hover {
-    filter: opacity(80%);
-}
-
-.badge-header {
-  margin: 10px 0 10px 0;
-}
-
-.badge-img {
-  margin: 0 0 0 0;
-}
-
-.badge-footer {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  border-radius: 0 0 15px 15px;
-  background-color: #e0e0e0;
-}
-
-.badge-tags {
-  font-size: 13px;
-}
-
-.badge-name {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--gray3);
-}
-
-.badge-date {
-  font-size: 10px;
-  color: var(--gray8);
-}
-
-.badge-viewmore{
-  margin-right: 23px;
-  display: flex;
-  align-items: end;
-  color: var(--blue1);
-  font-size: 12px;
-}
-
-.achievement-title {
-  font-weight: 500;
-}
-
-.achievement-count {
-  font-size: 12px;
-}
-
-.badge-tag {
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20px;
-  width: 50px;
-  font-size: 10px;
-  color: white;
-}
-
-.badge-common{
-    background-color: darkorange;
-}
-
-.badge-rare{
-    background-color: red;
-}
-
-.badge-ultra{
-    background-color: purple;
-}
-
 /* Profile Page */
 
 .profile-container{
@@ -1060,7 +905,6 @@ hr{
 }
 
 .calendar-div{
-  position: absolute;
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -1102,3 +946,16 @@ hr{
   background-color: white;
 }
 
+.tag-style {
+  display: inline-flex;
+  border-radius: 9999px;
+  max-width: 100%;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #000000;
+}
+
+.tag-style:hover {
+  opacity: 80%;
+}
