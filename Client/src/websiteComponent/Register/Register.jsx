@@ -13,11 +13,9 @@ function Register(){
         e.preventDefault()
 
         const token = localStorage.getItem('token')
-        console.log(useremail , token)
 
         try {
             const createAccount = await register({username , useremail , userpassword})
-            console.log(createAccount , user)
 
         } catch (error) {
             console.log('This error occured in sign-in.js file' , error)

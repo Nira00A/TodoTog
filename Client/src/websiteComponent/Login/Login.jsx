@@ -6,7 +6,7 @@ function Login(){
     const [message , setMessage] = useState()
     const [useremail , setUseremail] = useState('')
     const [userpassword , setUserpassword] = useState('')
-    const {login} = useAuth()
+    const {login , setLoading} = useAuth()
 
     const handleLogin = async (e) => {
         e.preventDefault()

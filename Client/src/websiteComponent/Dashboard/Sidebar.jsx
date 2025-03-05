@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom'
 import { useAuth } from "../../context/AuthContext";
+import { useFeature } from "../../context/FeatureContext";
 
 export default function Sidebar(){
     const [isMenuOpen , setIsMenuOpen] = useState(false)
+    const {email , profilePicture , name} = useFeature()
     
     return(
         <div className="sidebar border-r h-full pt-6 relative">
@@ -41,12 +43,12 @@ export default function Sidebar(){
 
             <div className="sidebar-profile-div text4">
                 <NavLink to={'/dashboard/profile'} className="flex items-center gap-1">
-                    <div style={{backgroundImage: `url()`}} className="h-6 w-6 rounded-full bg-neutral-700">
-
+                    <div style={{backgroundImage: `url(${profilePicture})`}} className="h-6 w-6 rounded-full bg-center bg-cover">
+                        
                     </div>
                     <div className="flex-col">
-                        <div style={{fontSize: '12px'}}>Username</div>
-                        <div style={{fontSize: '10px'}}>useremail</div>
+                        <div style={{fontSize: '12px'}}>{name}</div>
+                        <div style={{fontSize: '10px'}}>{email}</div>
                     </div>
                 </NavLink>
                 

@@ -12,6 +12,7 @@ import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
 import {TaskPage , RewardsPage , Dashboard , Calendar , CalenderPage} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
+import { FeatureContextProvider } from './context/FeatureContext.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -78,7 +79,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <TodoContextProvider>
-        <AppRoutes/>
+        <FeatureContextProvider>
+          <AppRoutes/>
+        </FeatureContextProvider>
       </TodoContextProvider>
     </AuthProvider>
   </React.StrictMode>

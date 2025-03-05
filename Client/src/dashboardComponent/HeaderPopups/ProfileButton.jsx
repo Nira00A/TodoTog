@@ -1,21 +1,23 @@
 import React from "react";
+import { useFeature } from "../../context/FeatureContext";
 import { useAuth } from "../../context/AuthContext";
 import { NavLink } from "react-router-dom";
 
-export default function ProfileButton({onClick , url}){
+export default function ProfileButton({onClick}){
 
     const {logout} = useAuth()
+    const {email , profilePicture , name} = useFeature()
 
     return(
         <div className="profileOpenButtonDiv">
             <div className="flex items-center p-2 gap-1">
-                <div style={{backgroundImage: `url(${url})`}} className="h-6 w-6 rounded-full bg-neutral-700">
+                <div style={{backgroundImage: `url(${profilePicture})`}} className="h-6 w-6 bg-cover bg-center rounded-full bg-neutral-700">
 
                 </div>
 
                 <div className="flex-col">
-                    <div style={{fontSize: '12px'}}>Username</div>
-                    <div style={{fontSize: '10px'}}>useremail</div>
+                    <div style={{fontSize: '12px'}}>{name}</div>
+                    <div style={{fontSize: '10px'}}>{email}</div>
                 </div>
             </div>
             <div className="flex-col">
