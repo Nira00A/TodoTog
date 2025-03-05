@@ -54,6 +54,7 @@ app.get("/checksession", (req, res) => {
 /* Signup */
 app.post("/register", async (req, res) => {
   const { username, useremail, userpassword } = req.body;
+  const isNewUser = true
 
   try {
     const result = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -75,8 +76,8 @@ app.post("/register", async (req, res) => {
 
     const hashedPass = await bcrypt.hash(userpassword, 10);
     const account = await pool.query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-      [username, useremail, hashedPass]
+      "INSERT INTO users (username, email, password ,newuser) VALUES ($1, $2, $3 , $4) RETURNING *",
+      [username, useremail, hashedPass , isNewUser]
     );
     const user_id = account.rows[0].id
 
@@ -233,6 +234,73 @@ app.delete("/tododelete/:id", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+
+/*Features in the app*/
+app.post("/newuser" , async (req , res)=>{
+  const user_id = req.session.user_id
+
+  if(!user_id){
+    return res.json({err : "User not found"})
+  }
+
+  try {
+    const result = await pool.query('UPDATE users SET newuser = false WHERE id = $1', [user_id])
+    
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "User ID not found" });
+    }
+
+    res.json({message : "newuser is set to False"})
+  } catch (error) {
+    console.log("Error changing the newuser :", error);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.get("/getnewuser" , async (req , res)=>{
+  const user_id = req.session.user_id
+
+  if(!user_id){
+    return res.json({err : "User not found"})
+  }
+
+  try {
+    const result = await pool.query('SELECT newuser FROM users WHERE id = $1', [user_id])
+    
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "User ID not found" });
+    }
+    return res.json({result: result.rows})
+  } catch (error) {
+    console.log("Error changing the newuser :", error);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/userdetails' , async (req , res)=>{
+  const user_id = req.session.user_id
+  const {username , profilepic} = req.body
+
+  try {
+    const result = await pool.query('INSERT INTO userdetails (user_id , username , profilepic) VALUES ($1 , $2 , $3) RETURNING *' , [user_id , username , profilepic])
+    res.status(200).json({result: result})
+  } catch (error) {
+    console.log("Error changing the newuser :", error);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.get('/getuserinfo' , async (req , res)=>{
+  const user_id = req.session.user_id
+
+  try {
+    const result = await pool.query('SELECT users.email , userdetails.username , userdetails.profilepic FROM users JOIN userdetails ON users.id = userdetails.user_id WHERE users.id = $1', [user_id])
+    res.status(200).json(result.rows[0])
+  } catch (error) {
+    res.status(500).json({error : error})
+  }
+})
 
 /* Start the Server */
 app.listen(PORT, () => {
