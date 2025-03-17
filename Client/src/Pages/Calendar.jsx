@@ -1,15 +1,60 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState , useCallback} from "react"
+import '@schedule-x/theme-default/dist/index.css'
+import { Tags } from "../dashboardComponent/HeaderPopups/CreateTodoButton"
+import { useTodo } from "../context/TodoContext"
 
 export function CalenderPage(){
     const date = new Date()
     const [zino , setZino] = useState(0)
     const [today , setToday] = useState('')
+    const [create , setCreate] = useState(true)
+    const [time, setTime] = useState({
+        startHour: "00",
+        startMinute: "00",
+        endHour: "00",
+        endMinute: "00"
+      }); 
+    const [createError , setCreateError] = useState({})
     const [openCalendar , setOpenCalendar] = useState(false)
-
-    const todos = [
-        { title: "Workout", startTime: "02:30am", endTime: "5:00am", description: "Evening exercise" },
-        { title: "Workout", startTime: "00:30am", endTime: "2:00am", description: "Evening exercise" }
+    
+    const category = [
+        {name: 'Work feild'},
+        {name: 'Personal feild'},
+        {name: 'Fitness feild'},
+        {name: 'Study feild'},
+        {name: 'Travel feild'}
     ]
+    const {form , setForm , submitTodo , todos} = useTodo()
+
+    const formatTime = (date) => 
+        `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    
+
+    const validate = () =>{ 
+        let errors = {
+            title: form.todo.trim() === '',
+            desc: form.tododesc.trim() === '',
+            start: form.starttime.trim() === '',
+            end: form.endtime.trim() === '',
+            color: form.todocolor.trim() === '',
+            condition: form.starttime < formatTime(date)
+        }
+        setCreateError(errors)
+
+        return Object.values(errors).includes(true); // Returns true if there's an error
+    }
+
+    const handleSubmitTodo = (e) =>{
+        
+        try {           
+            if(validate()) return;
+            
+            submitTodo(e)
+
+        } catch (error) {
+            console.log(error , "while submitting todo")
+        }
+    }
 
     useEffect(()=>{
         const day = new Date().getDay()
@@ -21,12 +66,63 @@ export function CalenderPage(){
         }
     },[])
 
+    useEffect(()=>{
+        setForm((prev)=> ({...prev , starttime: `${time.startHour}:${time.startMinute}` , endtime: `${time.endHour}:${time.endMinute}`}))
+    },[time , setForm])
 
     return(
-        <div className="calendar-container relative">
-            <div className="w-max mt-3 flex-col relative overflow-scroll">
+        <div className="calendar-container gap-3 pt-3 relative">
+            {create && <CreateTodo onClick={(prev) => setCreate(!prev)} setTime={setTime} time={time} form={form} setForm={setForm} handleSubmitForm={handleSubmitTodo} setCreate={setCreate} errors={createError}/>}
+            <div className="flex-col">
+                <Calendar1 />
+
+                <div className="w-full h-auto div-color p-1 pb-3 rounded-md mt-3">
+                    <div className="flex items-center gap-1 text4">
+                        <div><svg style={{fill: "var(--div-color)"}} xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path fill="currentColor" d="M480-360 280-560h400L480-360Z"/></svg></div>
+                        <div>My category </div>
+                    </div>
+
+                    <div className="flex-col ml-6 mt-3 text4 text-sm">
+                        <div className="flex-col gap-2">
+                            { category.map((item , index)=>
+                            <div className="flex gap-2" key={index}>
+                                <input type="checkbox"/>
+                                <div>{item.name}</div>
+                            </div>
+                            )}
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div className="w-full h-auto div-color p-1 pb-3 rounded-md mt-3">
+                    <div className="flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e8eaed"><path d="m640-480 80 80v80H520v240l-40 40-40-40v-240H240v-80l80-80v-280h-40v-80h400v80h-40v280Zm-286 80h252l-46-46v-314H400v314l-46 46Zm126 0Z"/></svg>
+                        <div className="text4">Pinned Todos</div>
+                    </div>
+
+                    <div className="ml-6 text-sm">
+                        This will contain the pinned task
+                    </div>
+                </div>
+
+                <div className="w-full h-auto div-color p-1 pb-3 rounded-md mt-3">
+                    <div className="flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e8eaed"><path d="m640-480 80 80v80H520v240l-40 40-40-40v-240H240v-80l80-80v-280h-40v-80h400v80h-40v280Zm-286 80h252l-46-46v-314H400v314l-46 46Zm126 0Z"/></svg>
+                        <div className="text4">Create</div>
+                    </div>
+
+                    <div onClick={() => setCreate(true)} className="ml-6 text-blue-400 text-sm cursor-pointer w-max">
+                        Create a todo +
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div className="w-max flex-col relative overflow-scroll">
                 <div className="flex-col relative">
-                    {/**Header of the calendar*/}
+                    
                     <div className="calendar-header">
                         <div className="calendar-date">
                             <div className="text-2xl heading">
@@ -51,7 +147,7 @@ export function CalenderPage(){
                         </div>
                     </div>
 
-                    {/**Weekdays and mini-Calendar*/}
+                    
                     <div className="flex gap-5 mt-5 relative">
                         <div className="flex gap-3 relative">
                             <div onClick={()=>setOpenCalendar((prev) => !prev)} className="flex items-center cursor-pointer relative">
@@ -59,7 +155,7 @@ export function CalenderPage(){
                             </div>
                             {
                                 openCalendar && (
-                                    <Calendar isAbsolute={true}/>
+                                    <Calendar1 isAbsolute={true}/>
                                 )
                             }
                             { Weekdays(zino).map((item)=> (
@@ -78,8 +174,8 @@ export function CalenderPage(){
                     </div>
                 </div>
 
-                {/*Big-Calendar*/}
-                <div className="calendar-big-body mt-10">
+                
+                {<div className="calendar-big-body mt-10">
                     {generateCalendarTime.map((item) =>
                         <div className="calendar-time">
                             <div>{item.name}</div>
@@ -88,14 +184,215 @@ export function CalenderPage(){
                     )}
                     {todos.map((todo)=> 
                         <Card 
-                            key={todo.startTime} 
-                            title={todo.title} 
-                            description={todo.description} 
-                            srt={todo.startTime} 
-                            end={todo.endTime} 
+                            key={todo.starttime} 
+                            title={todo.todo} 
+                            description={todo.tododesc} 
+                            srt={todo.starttime} 
+                            end={todo.endtime} 
                         />
                     )}
+                </div>}
+                
+            </div>
+        </div>
+    )
+}
+
+function CreateTodo({setTime , time , setForm , form , handleSubmitForm , setCreate ,errors}){
+    const date = new Date().toDateString().split(' ')
+    const date1 = date[1] +' ' + date[2] + " " + date[3]
+
+    const totalHour = [
+        "00", "01", "02", "03", "04", "05",
+        "06", "07", "08", "09", "10", "11",
+        "12", "13", "14", "15", "16", "17",
+        "18", "19", "20", "21", "22", "23"
+      ];
+    const totalMinutes = [
+    "00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
+    "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+    "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+    "30", "31", "32", "33", "34", "35", "36", "37", "38", "39",
+    "40", "41", "42", "43", "44", "45", "46", "47", "48", "49",
+    "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"
+    ];
+      
+    const colors = [
+        "#000000", // Black
+        "#6200EA", // Deep Purple
+        "#9C27B0", // Purple
+        "#1E40AF", // Deep Blue
+        "#1976D2", // Blue
+        "#00BCD4", // Cyan
+        "#008000", // Green
+        "#FFFFFF"  // White
+      ];
+
+    const [showTimePickerLeft , setShowTimePickerLeft] = useState(false)
+    const [showTimePickerRight , setShowTimePickerRight] = useState(false)
+
+    const handleTitleChange = useCallback((item) => {
+        setForm((prev) => ({...prev , todo: item}))
+    }, [setForm])
+
+    const handleDescChange = useCallback((item) => {
+        setForm((prev) => ({...prev , tododesc: item}))
+    }, [setForm])
+
+    const handleColorChange = useCallback((item) => {
+        setForm((prev) => ({...prev , todocolor: item}))
+    }, [setForm])
+
+    const handleTagChange = useCallback((item)=>{
+        setForm((prev)=> ({...prev , todotype: item}))
+    }, [setForm])
+
+    return(
+        <div className="details-popup bg-opacity-70 bg-black relative">
+            <div className={`${errors.title ? 'border-[2px] border-red-700' : ''} div-color rounded-md h-[450px] w-max overflow-hidden relative`}>
+                <div className="flex justify-between pt-1 pl-2 pr-2 relative">
+                    <div className="text4 flex-col relative">
+                        <div className="flex items-center">
+                            <div><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" ><path fill="currentColor" d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm0-240q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm0-240q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640ZM480-400q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm40 240v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"/></svg></div>
+                            <div className="h-max w-max outline-none bg-transparent text-2xl select-none font-semibold">Your Topic</div>
+                        </div>
+                        <div className="text-xs pl-6 select-none text-neutral-500">Enter the topic below</div>
+                    </div>
+                    
+                    <div className="text-xs flex gap-3 text-white items-center">
+                        <button onClick={handleSubmitForm} className="rounded-lg bg-neutral-700 h-8 pl-3 pr-3">
+                            Save
+                        </button>
+
+                        <button onClick={()=>setCreate(false)} className="text-xs rounded-lg bg-red-500 h-8 pl-3 pr-3">
+                            Cancel
+                        </button>
+                    </div>
                 </div>
+                <hr/>
+                <div className="flex gap-6 ml-7 mr-7 relative">
+                    <div className="w-full relative">
+                        <div className="flex gap-3 relative">
+                            <div className="relative">
+                                <div className="flex relative">
+                                    <div onClick={()=>setShowTimePickerLeft(prev => !prev)} type="text" className={`${errors.starttime ? 'text-red-600':'text4'} text-2xl relative bg-transparent w-max -ml-[2px]`}>
+                                        {time.startHour + `:` + time.startMinute}
+                                    </div>
+                                    {showTimePickerLeft && <TimePickerDivLeft totalHour={totalHour} totalMinutes={totalMinutes} setTime={setTime} condition={'start'}/>}
+                                </div>
+                                <div style={{fontSize: '10px'}} className=" text-neutral-400">
+                                    {date1}
+                                </div>
+                            </div>
+                            <div className="relative">
+                                <div className="flex">
+                                    <div onClick={()=>setShowTimePickerRight(prev => !prev)} type="text" className="text-2xl text4 relative bg-transparent w-max -ml-[2px]">
+                                        {time.endHour + ':' + time.endMinute}
+                                    </div>
+                                    {showTimePickerRight && <TimePickerDivRight totalHour={totalHour} totalMinutes={totalMinutes} setTime={setTime}/>}
+                                </div>
+                                <div style={{fontSize: '10px'}} className=" text-neutral-400">
+                                    {date1}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 mt-6 relative">
+                            <div className={`${errors.title ? 'text-red-600':'text4'} text-sm`}>
+                                Task*
+                            </div>
+                            
+                            <div className="ml-10">
+                                <input onChange={(e)=>handleTitleChange(e.target.value)} placeholder="Enter your task..." className="text-xs w-60 h-8 p-1 outline-none rounded-md border-2"/>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3 mt-6 mb-6 relative">
+                            <div className={`${errors.desc ? 'text-red-600':'text4'} text-sm pt-1`}>
+                                Description*
+                            </div>
+                            
+                            <textarea onChange={(e)=>handleDescChange(e.target.value)} placeholder="Enter your task..." className="resize-none text-xs w-60 h-20 p-1 outline-none rounded-md border-2 "></textarea>
+                        </div>
+
+                        <div className="flex gap-12 mt-6 mb-6">
+                            <div className={`${errors.tag ? 'text-red-600':'text4'} flex items-center text-sm`}>Tags</div>
+                            <div className="flex gap-1">
+                                    {["Work", "Personal", "Fitness", "Study"].map((tag) => (
+                                        <Tags key={tag} name={tag} color="gray" item={form.todotype[0]} onTagClick={handleTagChange} />
+                                    ))}
+                            </div>
+                        </div>
+
+                        <div className="mt-4">
+                            <div className={`${errors.color ? 'text-red-600':'text4'} text-sm`}>Accent Color</div>
+                            <div style={{fontSize: "12px"}} className=" text-neutral-400">Update your div with the color</div>
+                            <div className="flex items-center gap-1 mt-1">
+                                {colors.map((item,index) => (
+                                    <div
+                                    key={index}
+                                    className={`w-5 h-5 rounded-full border-2 transition-all cursor-pointer ${
+                                        form.todocolor === item ? "border-1 border-white h-7 w-7" : "border-transparent"
+                                    }`}
+                                    style={{ backgroundColor: item }}
+                                    onClick={()=>handleColorChange(item)}
+                                    >
+
+                                    </div>
+
+                                ))}
+                                <div className="flex items-center ml-2 gap-2">
+                                    <div className="text-xs text4">Custom</div>
+                                    <input onChange={(e)=>handleColorChange(e.target.value)} placeholder="#D3r4E" className="text4 text-xs p-1 outline-none bg-transparent border-2 rounded-md border-neutral-400 w-16 h-7"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function TimePickerDivLeft({totalHour , totalMinutes  , setTime}){
+    return(
+        <div className="flex text4 w-16 h-[100px] absolute bg-neutral-700 z-[10000] top-[30px] right-[-2px] justify-center text-[12px] pt-2 text5">
+            <div className="flex flex-col gap-y-1 overflow-y-scroll">
+                {totalHour.map((item , index)=>(
+                    <div onClick={() => setTime((prev) => ({ ...prev, startHour: item}))} className="cursor-pointer pl-1 pr-1 rounded-md hover:bg-neutral-600" key={index}>
+                        {item}
+                    </div>
+                ))}
+            </div>
+
+            <div className="flex flex-col gap-y-1 overflow-y-scroll">
+                {totalMinutes.map((item , index)=>(
+                    <div onClick={() => setTime((prev) => ({ ...prev, startMinute: item}))} className="cursor-pointer pl-1 pr-1 rounded-md hover:bg-neutral-600" key={index}>
+                        {item}
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+function TimePickerDivRight({totalHour , totalMinutes  , setTime , setForm}){
+    return(
+        <div className="flex text4 w-16 h-[100px] absolute bg-neutral-700 z-[10000] top-[30px] right-[-2px] justify-center text-[12px] pt-2 text5">
+            <div className="flex flex-col gap-y-1 overflow-y-scroll">
+                {totalHour.map((item , index)=>(
+                    <div onClick={() => setTime((prev) => ({ ...prev, endHour: item}))} className="cursor-pointer pl-1 pr-1 rounded-md hover:bg-neutral-600" key={index}>
+                        {item}
+                    </div>
+                ))}
+            </div>
+
+            <div className="flex flex-col gap-y-1 overflow-y-scroll">
+                {totalMinutes.map((item , index)=>(
+                    <div onClick={() => setTime((prev) => ({ ...prev, endMinute: item}))} className="cursor-pointer pl-1 pr-1 rounded-md hover:bg-neutral-600" key={index}>
+                        {item}
+                    </div>
+                ))}
             </div>
         </div>
     )
@@ -104,10 +401,10 @@ export function CalenderPage(){
 function Card({title , description , srt , end}){
     const srtHr = parseFloat(parseInt(srt.split(':')[0]) + parseFloat(srt.split(':')[1]) / 60)
     const endHr = parseFloat(parseInt(end.split(':')[0]) + parseFloat(end.split(':')[1]) / 60)
-    const height = parseInt((endHr - srtHr) * 100)
+    const height = parseInt((endHr - srtHr) * 80)
 
     return(
-        <div className="todo-item" style={{ top: `${srtHr * 100}px`,
+        <div className="todo-item" style={{ top: `${srtHr * 80}px`,
                                             height: `${height}px`,}}>
             <div>
                 title: {title}
@@ -120,7 +417,7 @@ function Card({title , description , srt , end}){
 }
 
 /*Calendar Functions*/
-export function Calendar({isAbsolute}){
+export function Calendar1({isAbsolute}){
     const {currentYear , currentMonth} = getCurrentDateInfo()
     const [Month , setMonth] = useState(currentMonth)
     const [Year , setYear] = useState(currentYear)
@@ -313,3 +610,4 @@ const getCurrentDateInfo = () => {
         currentDate: date.getDate(),
     };
 }
+

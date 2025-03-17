@@ -1,9 +1,10 @@
 import React, { useEffect , useState} from "react";
 import axios from "axios"
 import {Area, AreaChart, Line , LineChart, XAxis , YAxis , Tooltip , CartesianGrid , ResponsiveContainer, Brush} from "recharts"
-import { Calendar } from "./Calendar";
+import { Calendar1 } from "./Calendar";
 import { NavLink } from "react-router-dom";
 import { useFeature } from "../context/FeatureContext";
+import { NormalTags } from "../dashboardComponent/HeaderPopups/CreateTodoButton";
 
 export default function Dashboard(){
     const [newUserCheck , setNewUserCheck] = useState(true)
@@ -11,7 +12,7 @@ export default function Dashboard(){
     const [step , setStep] = useState('1')
     const [profileImage , setProfileImage] = useState('/Images/Char/char1.png')
     const [username , setUsername] = useState('')
-    const {userdetails , users } = useFeature()
+    const {userdetails , users , streak , streaks} = useFeature()
     const data = [
     { month: "January", completed: 45, pending: 10, total: 55 },
     { month: "February", completed: 38, pending: 12, total: 50 },
@@ -86,6 +87,7 @@ export default function Dashboard(){
             })
             .finally(() => {
                 setLoading(false);
+                streaks();
             });
     }, []);
 
@@ -119,7 +121,7 @@ export default function Dashboard(){
 
                         <div className="flex gap-3 mt-4">
                             <LongCard data={data} dataKey="pv"/>
-                            <Calendar />
+                            <Calendar1 />
                         </div>
 
                         <div className="flex-col">
@@ -129,7 +131,7 @@ export default function Dashboard(){
                     </div>
 
                     {/**SideCard Portion */}
-                    <div className="flex-col h-full w-80 rounded-lg div-color">
+                    <div className="flex-col h-full w-72 rounded-lg div-color">
                         <div className="flex-col">
                             <div className="flex justify-between p-2 text4">
                                 <div>Today's Work</div>
@@ -137,15 +139,15 @@ export default function Dashboard(){
                                     <svg style={{fill: "var(--div-color)"}} xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"><path fill="currentColor" d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>
                                 </NavLink>
                             </div>
-                            <div>
-                                This is a sample first todo
+                            <div className="flex justify-center">
+                                <NewTodoCard name={'Gym Session Week 3'} desc={"Day for biseps, legs and back. The target is 20 for biseps, 10 for legs, and 15 for back"} tag={<NormalTags name={'Tag'} color={"gray"}/>} date={'20/10/2025'}/>
                             </div>
                         </div>
 
-                        <div>
-                            <div className="text4">Achievements</div>
+                        <div className="mt-3">
+                            <div className="text4 p-2">Achievements</div>
 
-                            <div>This will contain the recent achievementts</div>
+                            <div className="flex justify-center"><AchievementsCard streak={streak} img={'https://cdn4.vectorstock.com/i/1000x1000/64/08/question-mark-symbol-icon-vector-13296408.jpg'}/></div>
                         </div>
 
                         <div>
@@ -156,6 +158,25 @@ export default function Dashboard(){
             </div>
         </div>
         
+    )
+}
+
+function NewTodoCard({name , desc , tag , date}){
+    return(
+        <div className="overlay-color rounded-md p-3 max-w-[260px] select-none text4">
+            <div>
+                {name}
+            </div>
+
+            <div className="text-xs mt-2">
+                {desc}
+            </div>
+            <div className="text-sm mt-3 mb-2">
+                Deadline : {date}
+            </div>
+            <hr className={`border-neutral-400`}/>
+            <div>{tag}</div>
+        </div>
     )
 }
 
@@ -351,19 +372,22 @@ function LongCard({data , datakey}){
     )
 }
 
-function AchievementsCard({name , tag , desc , url}){
+function AchievementsCard({url , img , streak}){
     return(
-        <div className="">
-            <div>
-                <div style={{backgroundImage: `url(${desc})`}}>
+        <div className="overlay-color rounded-md p-3 w-[260px] select-none text4 relative">
+            <div className="relative">
+                <div className="relative">
+                    <div style={{backgroundImage: url ? `url(${url})` : `url(${img})`}} className="h-10 w-10 rounded-full relative bg-cover bg-center ">
+                        <div style={{backgroundImage: url ? `url(${url})` : `url(${img})`}} className="h-10 w-10 rounded-full absolute bg-cover bg-center left-4">
+                            <div style={{backgroundImage: url ? `url(${url})` : `url(${img})`}} className="h-10 w-10 rounded-full absolute bg-cover bg-center left-4">
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div>
-                    <div>{name}</div>
-                    <div>{desc}</div>
-                </div>
-                <div>
-                    <div>{tag}</div>
+                    {streak}
                 </div>
             </div>
         </div>

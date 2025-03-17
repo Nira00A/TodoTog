@@ -80,10 +80,20 @@ export function CreateTodoButton({onClick}){
     )
 }
 
-export function Tags({name , color , fontColor ,  onTagClick}){ 
+export function Tags({name , color , item , onTagClick}){ 
     return(
         <div>
-            <div onClick={() => onTagClick([name , color])} style={{backgroundColor: color , color:"white"}} className={`tag-style`}>
+            <div onClick={() => onTagClick([name , color])} style={{backgroundColor: item === name ? 'red' : color , color:"white"}} className={`tag-style select-none`}>
+                {name}
+            </div>
+        </div>
+    )
+}
+
+export function NormalTags({name , color}){ 
+    return(
+        <div>
+            <div style={{backgroundColor: color , color:"white"}} className={`tag-style text5 select-none`}>
                 {name}
             </div>
         </div>

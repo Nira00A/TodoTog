@@ -5,7 +5,7 @@ const TodoContext = createContext()
 
 export const TodoContextProvider = ({children}) =>{
 
-    const [form , setForm] = useState({todo:"" , todotype:"" , tododate:`${new Date().toISOString().split('T')[0]}` , tododesc:"" , todocolor:""})
+    const [form , setForm] = useState({todo:"" , todotype:""  , tododesc:"" , todocolor:"" , starttime:"" , endtime:"" , tododate:`${new Date().toISOString().split('T')[0]}`})
     const [todos , setTodos] = useState([])
     const [todoList , setTodoList] = useState(todos)
     const [editingId, setEditingId] = useState(null);
@@ -42,9 +42,11 @@ export const TodoContextProvider = ({children}) =>{
             await axios.post('http://localhost:4000/todosubmit',
                 {todo: form.todo ,
                 todotype: form.todotype ,
-                tododate: form.tododate ,
                 tododesc: form.tododesc,
-                todocolor: form.todocolor
+                todocolor: form.todocolor,
+                starttime: form.starttime,
+                endtime: form.endtime,
+                tododate: form.tododate
                 })
             console.log('Success posting the todo from TodoContext') 
             getTodo()

@@ -4,12 +4,12 @@
 
 /*Colors*/
 :root {
-  --background-color: white;
-  --header-color: white;
-  --popup-color: #FAFAFA;
+  --background-color: #f1f1f1;
+  --header-color: #f1f1f1;
+  --popup-color: #f8f8f8;
   --border-color: #e5e7eb;
-  --overlay-color: #e0e0e0;
-  --div-color: #e7e7e7;
+  --overlay-color: #f3f3f3;
+  --div-color: white;
   --heading1: #1a1a1a;
   --text1: #555555;
   --text2: #666666;
@@ -24,12 +24,12 @@
 }
 
 [data-theme = "dark"]{
-  --background-color: #212121;
-  --header-color: #212121;
+  --background-color: #1a1a1a;
+  --header-color: #1a1a1a;
   --popup-color: #1D1D1D;
   --border-color: #2C2C2C;
   --overlay-color: #2D2D2D;
-  --div-color: #1a1a1a;
+  --div-color: #212121;
   --heading1: white;
   --text4: white;
   --text5: black;
@@ -123,7 +123,6 @@ body {
   grid-template-rows: 60px 130px;
   border-radius: 5px;
   background-color: var(--div-color);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .dashboard-long-card{
@@ -131,7 +130,6 @@ body {
  width: 570px;
  border-radius: 5px;
  background-color: var(--div-color);
- box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .details-popup{
@@ -602,13 +600,24 @@ body {
 }
 
 .achievement-badge{
+  position: relative;
   height: auto;
-  width: 150px;
+  width: 270px;
+  height: 340px;
   padding: 10px;
-  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 5px;
   background-color: var(--div-color);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  
 }
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0; /* Hides the icon */
+  width: 20px; /* Ensures click area remains */
+  cursor: pointer; /* Keeps pointer interaction */
+}
+
 /* Profile Page */
 
 .profile-container{
@@ -858,6 +867,7 @@ hr{
   height: 100%;
   width: 100%;
   display: flex;
+  
   justify-content: center;
 }
 
@@ -908,8 +918,9 @@ hr{
 }
 
 .calendar-big-body{
+  font-size: 14px;
   display: grid;
-  grid-template-rows: repeat(24 , 100px);
+  grid-template-rows: repeat(24 , 80px);
   position: relative;
 }
 
@@ -955,7 +966,6 @@ hr{
   height: 250px;
   width: 280px;
   top: 50px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: 1px solid var(--gray5);
   border-radius: 5px;
   background-color: var(--div-color);

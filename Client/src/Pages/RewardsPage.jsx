@@ -2,32 +2,83 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function RewardsPage(){
+
+    const badge = [
+        {name: 'Nerd' , desc: 'Completed an entire book without skipping a single day!' , cond: 'Complete todos daily for 10 days without breaking the streak'},
+        {name: 'Todo Master' , desc: "You're the master of tasks!" , cond: 'Complete 100 todos'},
+        {name: 'Productive Pro' , desc: 'Consistency is the key!' , cond: 'Complete 10 todos daily for 10 days'},
+        {name: 'Streak Legend' , desc: 'Built an unstoppable habit!' , cond: 'Reach a 50-day streak'},
+        {name: 'Accomplisher' , desc: "You don't just plan, you execute!" , cond: 'Complete 1000 todos'},
+        {name: 'Deadline Destroyer' , desc: 'Always on time!' , cond: 'Complete 10 todos in a row before the due time'}
+    ]
+
     return(
-            <div className="w-full h-full flex justify-center">
-                <div className="rewards-container1 ">
-                    <div className="heading">
-                        Progress
-                    </div>
-                    <div className="flex-col mt-6">
-                        <BadgesBar name={"Todo Destroyer"}/>
-                        <BadgesBar name={"Todo Destroyer"}/>
-                        <BadgesBar name={"Todo Destroyer"}/>
-                        <BadgesBar name={"Todo Destroyer"}/>
-                        <BadgesBar name={"Todo Destroyer"}/>
-                    </div>
-                </div>
-
-                <div className="rewards-container2 bg-white">
-                    <div className="heading">
-                        Achievements
+            <div className="w-full h-full flex justify-center overflow-scroll relative">
+                <div className="w-9/12 relative">
+                    <div className="mb-5">
+                        <div className="heading">Achievements</div>
+                        <div className="text-neutral-500 text-sm">Earn achievements by completing daily todos</div>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-2 pt-6 w-full">
-                        <Badges name={"First Steps"}/>
-                        <Badges name={"First Steps"}/>
-                        <Badges name={"First Steps"}/>
-                        <Badges name={"First Steps"}/>
-                        <Badges name={"First Steps"}/>
+                    <div className="flex justify-between">
+                        <div className="flex div-color pr-10 rounded-md items-center">
+                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
+
+                            </div>
+
+                            <div className="text4">
+                                <div className="text-lg">Points Earned</div>
+                                <div className="text-2xl text4 font-bold">
+                                    264
+                                </div>
+                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
+                            </div>
+                        </div>
+
+                        <div className="flex div-color pr-10 rounded-md items-center">
+                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
+
+                            </div>
+
+                            <div className="text4">
+                                <div className="text-lg">Points Earned</div>
+                                <div className="text-2xl text4 font-bold">
+                                    264
+                                </div>
+                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
+                            </div>
+                        </div>
+
+                        <div className="flex div-color pr-10 rounded-md items-center">
+                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
+
+                            </div>
+
+                            <div className="text4">
+                                <div className="text-lg">Points Earned</div>
+                                <div className="text-2xl text4 font-bold">
+                                    264
+                                </div>
+                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex-col h-full mt-6 relative">
+                        <div>
+                            <div className="text-xl text4 font-semibold">
+                                Activity
+                            </div>
+                            <div className="text-neutral-500 text-sm">
+                                Earn Xp with each completed achievement
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap w-full gap-3 items-center mt-6 relative">
+                            {badge.map((items , index)=>(
+                                <Badges key={index} name={items.name} desc={items.desc}/>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,26 +107,22 @@ function BadgesBar({img , name}){
 function Badges({img , name , desc , tag}){
     return(
         <div className="achievement-badge">
-            <div className="flex justify-between">
-                <div className="cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" ><path fill="currentColor" d="M480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-200v-80h320v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880q125 0 212.5 87.5T780-580q0 81-40.5 150T630-320H330Zm24-80h252q45-32 69.5-79T700-580q0-92-64-156t-156-64q-92 0-156 64t-64 156q0 54 24.5 101t69.5 79Zm126 0Z"/></svg>
+            <div className="flex justify-end pr-2 text-yellow-300 text-2xl">
+                +5
+            </div>
+            
+            <div className="flex-col justify-items-center">
+                <div className="h-40 w-40 flex" style={{backgroundImage: `url(${img})`}}>
+                    <img src="/Images/Badges/third.png" alt="" />
+                </div>
+                    
+                <div className="flex text4 justify-center mt-3">
+                    {name}
                 </div>
 
-                <div className="cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="15px" ><path fill="currentColor" d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                <div className="text-xs text-center text-neutral-500 mt-5">
+                    {desc}
                 </div>
-            </div>
-
-            <div style={{backgroundImage: `url(${img})`}}>
-                <img src="/Images/Badges/third.png" alt="" />
-            </div>
-                
-            <div className="flex text4 justify-center">
-                {name}
-            </div>
-
-            <div>
-                {desc}
             </div>
         </div>
     )
