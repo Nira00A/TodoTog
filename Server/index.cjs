@@ -54,6 +54,7 @@ app.get("/checksession", (req, res) => {
 /* Signup */
 app.post("/register", async (req, res) => {
   const { username, useremail, userpassword } = req.body;
+  const datejoined = new Date().toDateString()
   const isNewUser = true
 
   try {
@@ -76,8 +77,8 @@ app.post("/register", async (req, res) => {
 
     const hashedPass = await bcrypt.hash(userpassword, 10);
     const account = await pool.query(
-      "INSERT INTO users (username, email, password ,newuser) VALUES ($1, $2, $3 , $4) RETURNING *",
-      [username, useremail, hashedPass , isNewUser]
+      "INSERT INTO users (username, email, password ,newuser ,date) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [username, useremail, hashedPass , isNewUser , datejoined]
     );
     const user_id = account.rows[0].id
 
@@ -157,7 +158,6 @@ app.get("/gettodo", async (req, res) => {
     }
 
     res.status(200).json(response.rows);
-    console.log(response.rows);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -182,7 +182,7 @@ app.post('/gettag', async (req,res)=>{
 
 /* Submit a Todo */
 app.post("/todosubmit", async (req, res) => {
-  const { todo, todotype, tododate, todocolor, tododesc } = req.body;
+  const { todo, todotype, todocolor, tododesc , starttime , endtime , tododate} = req.body;
   const user_id = req.session.user_id
   
   try {
@@ -194,8 +194,8 @@ app.post("/todosubmit", async (req, res) => {
     }
 
     const result = await pool.query(
-      "INSERT INTO usertodo (user_id , todo, todotype, tododate, tododesc, todocolor) VALUES ($1, $2, $3, $4, $5 , $6) RETURNING *",
-      [user_id, todo, todotype, tododate, tododesc, todocolor]
+      "INSERT INTO usertodo (user_id , todo, todotype, tododesc, todocolor ,starttime , endtime , tododate) VALUES ($1, $2, $3, $4, $5, $6, $7 ,$8) RETURNING *",
+      [user_id, todo, todotype, tododesc, todocolor , starttime , endtime , tododate]
     );
     res.status(201).json(result.rows[0]);
 
@@ -281,9 +281,10 @@ app.get("/getnewuser" , async (req , res)=>{
 app.post('/userdetails' , async (req , res)=>{
   const user_id = req.session.user_id
   const {username , profilepic} = req.body
+  const date= new Date().toDateString()
 
   try {
-    const result = await pool.query('INSERT INTO userdetails (user_id , username , profilepic) VALUES ($1 , $2 , $3) RETURNING *' , [user_id , username , profilepic])
+    const result = await pool.query('INSERT INTO userdetails (user_id , username , profilepic , date) VALUES ($1 , $2 , $3 , $4) RETURNING *' , [user_id , username , profilepic , date])
     res.status(200).json({result: result})
   } catch (error) {
     console.log("Error changing the newuser :", error);
@@ -295,10 +296,48 @@ app.get('/getuserinfo' , async (req , res)=>{
   const user_id = req.session.user_id
 
   try {
-    const result = await pool.query('SELECT users.email , userdetails.username , userdetails.profilepic FROM users JOIN userdetails ON users.id = userdetails.user_id WHERE users.id = $1', [user_id])
+    const result = await pool.query('SELECT users.email , userdetails.username , userdetails.profilepic , userdetails.date FROM users JOIN userdetails ON users.id = userdetails.user_id WHERE users.id = $1', [user_id])
     res.status(200).json(result.rows[0])
   } catch (error) {
     res.status(500).json({error : error})
+  }
+})
+
+app.post('/visit' , async (req , res)=>{
+  const user_id = req.session.user_id
+  const today = new Date().toISOString().split("T")[0]
+
+  try {
+    const result = await pool.query('SELECT streak , lastlog FROM userstreak WHERE id = $1', [user_id])
+    if (result.rowCount === 0){
+      const streak = 1
+      await pool.query('INSERT INTO userstreak (id , lastlog , streak) VALUES ($1 , $2 , $3)' , [user_id , today , streak])
+      return res.json({ streak });
+    }
+
+    let {streak , lastlog} = result.rows[0]
+    const lastlogdate = new Date(lastlog)
+
+    const diffDays = Math.floor((new Date() - lastlogdate) / (1000 * 60 * 60 * 24)); // Days since last visit
+
+    if (diffDays === 0) {
+      return res.json({ streak });
+    }
+
+    if (diffDays === 1){
+      streak += 1
+    }else if (diffDays > 1){
+      streak = 1
+    }
+
+    await pool.query("UPDATE userstreak SET streak = $1, lastlog = $2 WHERE id = $3", [streak, today, user_id]);
+
+    res.json({streak})
+    console.log(streak)
+
+  } catch (error) {
+    console.error("Error updating streak:", error);
+    res.status(500).json({ error: "Server error" });
   }
 })
 
@@ -306,3 +345,5 @@ app.get('/getuserinfo' , async (req , res)=>{
 app.listen(PORT, () => {
   console.log(`Server is Running on Port ${PORT}`);
 });
+
+
