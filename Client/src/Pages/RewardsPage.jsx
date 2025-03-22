@@ -4,67 +4,47 @@ import { NavLink } from "react-router-dom";
 export default function RewardsPage(){
 
     const badge = [
-        {name: 'Nerd' , desc: 'Completed an entire book without skipping a single day!' , cond: 'Complete todos daily for 10 days without breaking the streak'},
-        {name: 'Todo Master' , desc: "You're the master of tasks!" , cond: 'Complete 100 todos'},
-        {name: 'Productive Pro' , desc: 'Consistency is the key!' , cond: 'Complete 10 todos daily for 10 days'},
-        {name: 'Streak Legend' , desc: 'Built an unstoppable habit!' , cond: 'Reach a 50-day streak'},
-        {name: 'Accomplisher' , desc: "You don't just plan, you execute!" , cond: 'Complete 1000 todos'},
-        {name: 'Deadline Destroyer' , desc: 'Always on time!' , cond: 'Complete 10 todos in a row before the due time'}
+        {name: 'Nerd' , desc: 'No skipping a day!' , cond: 'Complete todos daily for 10 days without breaking the streak', img:'/Images/Badges/nerd.png'},
+        {name: 'Todo Master' , desc: "You're the master of tasks!" , cond: 'Complete 100 todos' , img: '/Images/Badges/todoMaster.png'},
+        {name: 'Productive Pro' , desc: 'Consistency is the key!' , cond: 'Complete 10 todos daily for 10 days', img: '/Images/Badges/productivePro.png'},
+        {name: 'Streak Legend' , desc: 'Built an unstoppable habit!' , cond: 'Reach a 50-day streak', img: '/Images/Badges/streakLegend.png'},
+        {name: 'Accomplisher' , desc: "You don't just plan, you execute!" , cond: 'Complete 1000 todos', img: '/Images/Badges/accomplisher.png'},
+        {name: 'Deadline Destroyer' , desc: 'Always on time!' , cond: 'Complete 10 todos in a row before the due time', img: '/Images/Badges/deadlineDestroyer.png'}
+    ]
+
+    const points = [
+        {name:'Points Earned' , points:"200" , img:"/Images/Badges/pointsEarned.png"},
+        {name:'Achievements' , points:"200" , img:"/Images/Badges/achievementEarned.png"},
+        {name:'Xps Earned' , points:"200" , img:"/Images/Badges/pointsEarned.png"}
     ]
 
     return(
-            <div className="w-full h-full flex justify-center overflow-scroll relative">
-                <div className="w-9/12 relative">
-                    <div className="mb-5">
+            <div className="w-full h-full flex justify-center overflow-scroll scrollbar-none relative">
+                <div className="w-[1150px] h-full p-3 relative max-navlg:w-full">
+                    <div className="mb-5 max-navlg:w-full">
                         <div className="heading">Achievements</div>
                         <div className="text-neutral-500 text-sm">Earn achievements by completing daily todos</div>
                     </div>
 
-                    <div className="flex justify-between">
-                        <div className="flex div-color pr-10 rounded-md items-center">
-                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
+                    <div className="transition-all duration-500 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] flex gap-3 justify-between max-navlg:w-[100%] max-sm:flex-col">
+                        {points.map((items,index)=>(
+                        <div key={index} className="flex div-color w-full rounded-md items-center">
+                            <div style={{backgroundImage: `url(${items.img})`}} className="bg-cover bg-center h-20 w-20">
 
                             </div>
 
                             <div className="text4">
-                                <div className="text-lg">Points Earned</div>
-                                <div className="text-2xl text4 font-bold">
-                                    264
+                                <div className="text-sm">{items.name}</div>
+                                <div className="text-xl text4 font-bold">
+                                    {items.points}
                                 </div>
                                 <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
                             </div>
                         </div>
-
-                        <div className="flex div-color pr-10 rounded-md items-center">
-                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
-
-                            </div>
-
-                            <div className="text4">
-                                <div className="text-lg">Points Earned</div>
-                                <div className="text-2xl text4 font-bold">
-                                    264
-                                </div>
-                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
-                            </div>
-                        </div>
-
-                        <div className="flex div-color pr-10 rounded-md items-center">
-                            <div style={{backgroundImage: 'url(/Images/Badges/earn.png)'}} className="bg-cover bg-center h-28 w-28">
-
-                            </div>
-
-                            <div className="text4">
-                                <div className="text-lg">Points Earned</div>
-                                <div className="text-2xl text4 font-bold">
-                                    264
-                                </div>
-                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
 
-                    <div className="flex-col h-full mt-6 relative">
+                    <div className="flex-col h-full mt-6 relative max-navlg:w-full">
                         <div>
                             <div className="text-xl text4 font-semibold">
                                 Activity
@@ -74,9 +54,9 @@ export default function RewardsPage(){
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap w-full gap-3 items-center mt-6 relative">
+                        <div className="flex flex-wrap gap-3 items-center mt-6 relative max-navlg:w-full">
                             {badge.map((items , index)=>(
-                                <Badges key={index} name={items.name} desc={items.desc}/>
+                                <Badges key={index} name={items.name} desc={items.desc} img={items.img}/>
                             ))}
                         </div>
                     </div>
@@ -106,22 +86,23 @@ function BadgesBar({img , name}){
 
 function Badges({img , name , desc , tag}){
     return(
-        <div className="achievement-badge">
-            <div className="flex justify-end pr-2 text-yellow-300 text-2xl">
+        <div style={{filter: 'grayscale(80%)' , opacity: '0.5'}} className="achievement-badge w-[200px] h-[320px] max-navmd:w-full max-navmd:h-max">
+            <div className="flex justify-end pr-2 text-yellow-300 text-2xl max-navmd:hidden">
                 +5
             </div>
             
-            <div className="flex-col justify-items-center">
-                <div className="h-40 w-40 flex" style={{backgroundImage: `url(${img})`}}>
+            <div className="flex flex-col items-center max-navmd:flex-row">
+                <div className="h-40 w-40 flex bg-cover bg-center max-navmd:h-20 max-navmd:w-20" style={{backgroundImage: `url(${img})`}}>
                     <img src="/Images/Badges/third.png" alt="" />
                 </div>
-                    
-                <div className="flex text4 justify-center mt-3">
-                    {name}
-                </div>
+                <div className='flex flex-col max-navmd:items-start'>  
+                    <div className="flex text4 justify-center mt-3 max-navmd:m-0 max-navmd:justify-start">
+                        {name}
+                    </div>
 
-                <div className="text-xs text-center text-neutral-500 mt-5">
-                    {desc}
+                    <div className="text-xs text-center text-neutral-500 mt-5 max-navmd:m-0 max-navmd:text-start">
+                        {desc}
+                    </div>
                 </div>
             </div>
         </div>

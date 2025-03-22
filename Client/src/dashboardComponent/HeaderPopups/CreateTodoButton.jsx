@@ -83,7 +83,7 @@ export function CreateTodoButton({onClick}){
 export function Tags({name , color , item , onTagClick}){ 
     return(
         <div>
-            <div onClick={() => onTagClick([name , color])} style={{backgroundColor: item === name ? 'red' : color , color:"white"}} className={`tag-style select-none`}>
+            <div onClick={() => onTagClick([name , color])} style={{backgroundColor: item === name ? 'red' : color , color:"white"}} className={`tag-style select-none max-navsm:text-[10px]`}>
                 {name}
             </div>
         </div>
@@ -93,7 +93,7 @@ export function Tags({name , color , item , onTagClick}){
 export function NormalTags({name , color}){ 
     return(
         <div>
-            <div style={{backgroundColor: color , color:"white"}} className={`tag-style text5 select-none`}>
+            <div style={{backgroundColor: color , color:"white"}} className={`tag-style text-[10px] text5 select-none`}>
                 {name}
             </div>
         </div>

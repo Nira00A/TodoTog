@@ -5,7 +5,7 @@ import { DashHeader, NewsFeed, Sidebar } from "./websiteComponent/Dashboard/inde
 function DashboardLayout() {
 
     return (
-            <div className="flex">
+            <div className="flex w-full h-full bg-(var(--background-color))">
                 <div className="">
                     <Sidebar />
                 </div>

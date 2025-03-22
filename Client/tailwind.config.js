@@ -15,6 +15,13 @@ module.exports = {
       fontSize: {
         'xs': '13px',
       },
+      screens:{
+        'navsm': '426px',
+        'navmd': '786px',
+        'navmdb': "830px",
+        'navlg': '1210px',
+        'navxl': '1400px'
+      }
     },
   },
   plugins: [],

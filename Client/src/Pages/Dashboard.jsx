@@ -103,12 +103,7 @@ export default function Dashboard(){
                 <PicturePopup img={profileImage} onClick={handleClick} onPrev={handlePrev} onChange={handleChange} onSubmit={handleSubmitUserdetails}/>
             )}
 
-            <div className="flex-col pt-1">
-                {/**Heading of Dashboard*/}
-                <div className="heading mb-3">
-                    Dashboard
-                </div>
-
+            <div className="flex-col mt-3">
                 {/**Two portions*/}
                 <div className="flex gap-3">
                     {/**Cards Portion*/}

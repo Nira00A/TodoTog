@@ -8,14 +8,14 @@ export default function Sidebar(){
     const {email , profilePicture , name} = useFeature()
     
     return(
-        <div className="sidebar border-r h-full pt-6 relative">
+        <div className="sidebar max-navxl:w-[60px] border-r h-full pt-6 relative">
             <div className="w-full h-full flex-col pl-2 pr-2">
                 <div>
-                    <div className="flex items-center gap-1 pl-3">
+                    <div className="flex items-center gap-1 ml-[7px]">
                         <div style={{width: "30px", height: "30px" , backgroundImage: `url('/Images/Icons/Logo.png')` , backgroundSize: 'cover'}}>
                             
                         </div>
-                        <div className="text-red-600 flex justify-center items-center text-lg font-bold">
+                        <div className="text-red-600 flex justify-center items-center text-lg font-bold max-navxl:hidden">
                             <div>
                                 TODO
                             </div>
@@ -42,17 +42,16 @@ export default function Sidebar(){
             <hr className="m-0"/>
 
             <div className="sidebar-profile-div text4">
-                <NavLink to={'/dashboard/profile'} className="flex items-center gap-1">
-                    <div style={{backgroundImage: `url(${profilePicture})`}} className="h-6 w-6 rounded-full bg-center bg-cover">
-                        
-                    </div>
-                    <div className="flex-col">
+                <NavLink to={'/dashboard/profile'} className="flex items-center max-navxl:justify-center gap-1">
+                    <img src={`${profilePicture}`} className="h-6 w-6 rounded-full max-navxl:ml-[6px]"/>
+
+                    <div className="flex-col max-navxl:hidden">
                         <div style={{fontSize: '12px'}}>{name}</div>
                         <div style={{fontSize: '10px'}}>{email}</div>
                     </div>
                 </NavLink>
                 
-                <div className="relative">
+                <div className="relative max-navxl:hidden">
                     <svg onClick={() => setIsMenuOpen((prev) => ! prev)} xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#888888"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
                 </div>
                 {isMenuOpen && ( <Menupopup />)}
@@ -82,8 +81,8 @@ function Sidebaroptions({to , optionName , svg}){
     return(
         <div>
             <NavLink to={to} className="sideoptions pl-3">
-                {svg}
-                {optionName}
+                <div>{svg}</div>
+                <div className="max-navxl:hidden">{optionName}</div>
             </NavLink>
         </div>
     )

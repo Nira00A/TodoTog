@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useFeature } from "../../context/FeatureContext";
 
 export default function Toogle(){
     
-    const storedToggle = localStorage.getItem("toggle") === "true";
-    const [toogleChecked, setToogleChecked] = useState(storedToggle);
+    const {toogleChecked , setToogleChecked} = useFeature()
 
     useEffect(() => {
         if (toogleChecked) {

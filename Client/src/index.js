@@ -10,7 +10,7 @@ import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './websiteComponent/Dashboard/index';
 import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
-import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms} from './Pages/index.js'
+import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms , Settings} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
 import { FeatureContextProvider } from './context/FeatureContext.js';
 
@@ -66,6 +66,10 @@ const AppRoutes = () =>{
               {
                 path:'/dashboard/terms',
                 element: <Terms />
+              },
+              {
+                path:'/dashboard/settings',
+                element: <Settings />
               }
             ]
           },

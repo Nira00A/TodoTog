@@ -10,6 +10,8 @@ export const FeatureContextProvider = ({children}) =>{
     const [name , setName] = useState()
     const [streak , setStreak] = useState()
     const [date , setDate] = useState()
+    const storedToggle = localStorage.getItem("toggle") === "true";
+    const [toogleChecked, setToogleChecked] = useState(storedToggle);
 
     const userdetails = async (username , profilepic) =>{
         try {
@@ -46,7 +48,7 @@ export const FeatureContextProvider = ({children}) =>{
     }
 
     return (
-        <FeatureContext.Provider value={{userdetails , users , streaks , streak , email , profilePicture , name , date}}>
+        <FeatureContext.Provider value={{userdetails , users , streaks , setToogleChecked , toogleChecked , streak , email , profilePicture , name , date}}>
             {children}
         </FeatureContext.Provider>
     )
