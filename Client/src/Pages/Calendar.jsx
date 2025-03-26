@@ -178,7 +178,7 @@ export function CalenderPage(){
                 
                 {<div className="calendar-big-body mt-10">
                     {generateCalendarTime.map((item) =>
-                        <div className="calendar-time">
+                        <div key={item.name} className="calendar-time">
                             <div>{item.name}</div>
                             <div>{item.zone}</div>
                         </div>
@@ -456,7 +456,7 @@ export function Calendar1({isAbsolute}){
                 <div className="select-none">
                     {totalMonths.map((item) => item.id === Month ? 
                     (
-                    <div>
+                    <div key={item.id}>
                         {item.name}
                         {Year}
                     </div>   
@@ -471,7 +471,7 @@ export function Calendar1({isAbsolute}){
             <div className="calendar-body mt-3">
             {
                 totalWeekDays.map((item) => (
-                    <div>
+                    <div key={item.id}>
                         {item.day[0]}    
                     </div>
                 ))

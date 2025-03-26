@@ -46,7 +46,6 @@ export default function Dashboard(){
 
     const handleNameChange = (name) =>{
         setUsername(name)
-        console.log(username)
     }
 
     const handleNext = () =>{

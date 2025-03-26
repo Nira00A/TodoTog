@@ -10,9 +10,10 @@ import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './websiteComponent/Dashboard/index';
 import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
-import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms , Settings} from './Pages/index.js'
+import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms , Settings , Project} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
 import { FeatureContextProvider } from './context/FeatureContext.js';
+import ProjectCreate from './Pages/ProjectCreate.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -56,6 +57,10 @@ const AppRoutes = () =>{
                 element: <RewardsPage/>
               },
               {
+                path: '/dashboard/project',
+                element: <Project />
+              },
+              {
                 path:'/dashboard/profile',
                 element: <ProfilePage/>
               },
@@ -70,6 +75,10 @@ const AppRoutes = () =>{
               {
                 path:'/dashboard/settings',
                 element: <Settings />
+              },
+              {
+                path:'/dashboard/create',
+                element: <ProjectCreate />
               }
             ]
           },
