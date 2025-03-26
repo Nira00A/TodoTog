@@ -341,6 +341,30 @@ app.post('/visit' , async (req , res)=>{
   }
 })
 
+app.post('/project',async (req,res)=>{
+  const user_id = req.session.user_id
+  const {status , title , description , tag , attachment , duedate} = req.body
+  try {
+    const result = await pool.query('INSERT INTO project (user_id , status , title , description , tag , attachment , duedate) VALUES ($1 , $2 , $3 , $4 , $5 , $6 , $7) RETURNING *', [user_id , status , title , description , tag , attachment , duedate])
+    res.status(200).json({result:result})
+  } catch (error) {
+    console.error("Error while sumbmiting project:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.get('/getproject', async(req,res)=>{
+  const user_id = req.session.user_id
+
+  try {
+    const result = await pool.query('SELECT * FROM project WHERE user_id = $1',[user_id])
+    res.status(200).json(result.rows)
+  } catch (error) {
+    console.log('Cant get the project todos')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
 /* Start the Server */
 app.listen(PORT, () => {
   console.log(`Server is Running on Port ${PORT}`);
