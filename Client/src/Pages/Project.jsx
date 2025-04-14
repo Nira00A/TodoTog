@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFeature } from "../context/FeatureContext";
 
 export default function Project(){
@@ -8,27 +8,28 @@ export default function Project(){
     const [credit , setCredit] = useState(29)
     const [status , setStatus] = useState()
     const {totalProjects} = useFeature()
+    const navigate = useNavigate()
 
     return(
         <div className="w-full h-full flex justify-center relative">
             <div className="w-[1150px] flex flex-col p-3 max-navlg:w-full overflow-scroll relative scrollbar-none">
                 <div>
-                    <div className="heading">
+                    <div className="heading max-navsm:text-[20px]">
                         Projects
                     </div>
-                    <div className="text-neutral-500 text-[14px]">
+                    <div className="text-neutral-500 text-[14px] max-navsm:text-[12px]">
                         Monitor all your projects here
                     </div>
                 </div>
 
                 <div className="flex justify-between items-center w-full mt-3 relative">
-                    <div>
+                    <div className="max-navsm:hidden transition-all">
                         <input className="p-[6px] w-[250px] text4 rounded-md bg-transparent border border-[var(--border-color)]" type="search" placeholder="Search..."/>
                     </div>
 
-                    <NavLink to={'/dashboard/create'} className="overlay-color hover:bg-neutral-500 text4 flex p-[6px] rounded-md items-center relative"> 
+                    <NavLink to={'/dashboard/project/create'} className="overlay-color hover:bg-neutral-500 text4 flex p-[6px] rounded-md items-center relative"> 
                         <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"><path fill="currentColor" d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                        <div className="text-[14px] mr-1 ">Create</div>
+                        <div className="text-[14px] mr-1 transition-all max-navsm:text-[12px]">Create</div>
                     </NavLink>
                 </div>
 
@@ -41,9 +42,11 @@ export default function Project(){
                     <Tags name={'Canceled'} ischecked={isTagClicked} setischecked={setIsTagClicked}/>
                 </div>
 
-                <div className="h-full w-full flex gap-2 mt-3">
-                    {totalProjects ? totalProjects.map((items)=>(
-                        <ProjectCard credit={credit} tag={items.tag} title={items.title} description={items.description} createdate={items.created_at.split('T')[0]} duedate={items.duedate.split('T')[0]}/>
+                <div className="h-max w-full flex flex-wrap gap-2 mt-3 transition-all">
+                    {totalProjects ? totalProjects.map((items,index)=>(
+                        <div key={index} onClick={()=>navigate(`/dashboard/project/${items.id}`)}>
+                            <ProjectCard credit={credit} tag={items.tag} title={items.title} description={items.description} createdate={items.created_at.split('T')[0]} duedate={items.duedate.split('T')[0]}/>
+                        </div>
                     )) : ""}
                     
                 </div>
@@ -54,7 +57,7 @@ export default function Project(){
 
 function Tags({name , ischecked , setischecked}){
     return(
-        <div onClick={()=> setischecked(name)} className={`${ischecked === name ? 'bg-red-500' : 'overlay-color'} rounded-md p-1 text4 text-[12px] select-none pl-2 pr-2 cursor-pointer`}>
+        <div onClick={()=> setischecked(name)} className={`${ischecked === name ? 'bg-red-500' : 'overlay-color'} rounded-md p-1 text4 text-[12px] select-none pl-2 pr-2 cursor-pointer transition-all max-navsm:text-[10px]`}>
             {name}
         </div>
     )
@@ -62,40 +65,50 @@ function Tags({name , ischecked , setischecked}){
 
 function ProjectCard({credit , description , title , tag , progress , createdate , duedate}){
     let desc
+    let til
     const parsedTag = JSON.parse(tag)
     if(description){
-        desc = description.slice(0 , 54)+'...'
+        if(description.length > 54){
+            desc = description.slice(0 , 54)+'...'
+        }
+        else{
+            desc = description
+        }
+    }
+    if(title){
+        if(title.length > 30){
+            til = title.slice(0 , 30)+'...'
+        }
+        else{
+            til = title
+        }
     }
     return(
-        <div className="w-[320px] h-max rounded-lg overlay-color p-2 opacity-80 select-none hover:opacity-70 cursor-pointer relative">
+        <div className="w-[275px] h-max rounded-lg overlay-color p-2 opacity-80 select-none hover:opacity-70 cursor-pointer relative transition-all max-navsm:w-full">
             <div className="flex items-center justify-between">
                 <div className="flex gap-1 items-center">
-                    <div>
-                        <ProjectTags name={parsedTag.name} color={parsedTag.color}/>
-                    </div>
-
                     <div>
                         <ProjectStatus name={'ongoing'}/>
                     </div>
                 </div>
 
-                <div className="">
+                <div>
                     <ProjectCredit credit={credit}/>
                 </div>
             </div>
 
             <div className="mt-2">
-                <div className="text4 font-bold">
-                    {title}
+                <div className="text4 font-bold transition-all max-navsm:text-[12px]">
+                    {til}
                 </div>
-                <div className="text-neutral-500 text-[12px]">
+                <div className="text-neutral-500 text-[12px] transition-all max-navsm:text-[10px]">
                     {desc}
                 </div>
             </div>
 
             <hr className="border-neutral-600 mt-3 mr-0 ml-0"/>
             
-            <div className="w-full flex text-white text-[12px] justify-between">
+            <div className="w-full flex text-white text-[12px] justify-between transition-all max-navsm:text-[11px]">
                 <div>
                     Progress
                 </div>
@@ -135,7 +148,7 @@ function ProjectCard({credit , description , title , tag , progress , createdate
 
 function ProjectTags({name , color}){
     return(
-        <div className={`text-[12px] ${color} text-white pl-1 pr-1 rounded-sm`}>
+        <div className={`text-[12px] ${color} text-white pl-1 pr-1 rounded-sm max-navsm:text-[10px]`}>
             #{name}
         </div>
     )
@@ -154,7 +167,7 @@ function ProjectStatus({name}){
         bgcolor = 'bg-red-400'
     }
     return(
-        <div className={`${bgcolor} p-[2px] text-[12px] pl-1 pr-1 flex items-center justify-center rounded-full text-white`}>
+        <div className={`${bgcolor} p-[2px] text-[12px] pl-1 pr-1 flex items-center justify-center rounded-full transition-all text-white max-navsm:text-[10px]`}>
             {name}
         </div>
     )
@@ -175,7 +188,7 @@ function ProjectCredit({credit}){
 
     return (
         <div
-          className={`${bgcolor} p-[2px] pl-1 pr-1 text-[12px] flex items-center justify-center rounded-full text-white`}
+          className={`${bgcolor} p-[2px] pl-1 pr-1 text-[12px] flex items-center justify-center rounded-full text-white transition-all max-navsm:text-[10px]`}
         >
           {credit} Points
         </div>

@@ -38,25 +38,26 @@ function ProfilePage() {
         {/**Profile card*/}
         <div className="w-[28%] flex flex-col gap-4 background-color relative max-navlg:w-full">
           <div className="w-[95%] h-max p-3 div-color rounded-md relative max-navlg:w-full max-navlg:flex max-[610px]:flex-col">
-            <div className="flex gap-3 h-[200px] mt-3 pl-4 mb-3 relative max-navlg:h-[150px]">
+            <div className="flex gap-3 mt-3 pl-4 mb-3 relative">
               <div
                 style={{ backgroundImage: `url(${profilePicture})` }}
-                className="h-[200px] w-[200px] rounded-lg bg-center bg-cover max-navlg:w-[150px] max-navlg:h-[150px]"
+                className="h-[200px] w-[200px] rounded-lg bg-center bg-cover max-navlg:h-[150px] max-navlg:w-[150px] max-navsm:w-[100px] max-navsm:h-[100px] transition-all"
               ></div>
-              <div className="flex flex-col gap-3">
-                <div className="h-8 w-8 rounded-md flex justify-center items-center bg-red-700">
+              <div className="flex flex-col gap-3 max-navlg:gap-1">
+                <div className="h-8 w-8 rounded-md flex justify-center items-center bg-red-700 transition-all max-navlg:w-[30px] max-navlg:h-[30px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20px"
                     viewBox="0 -960 960 960"
                     width="20px"
                     fill="#e8eaed"
+                    className="transition-all max-navlg:w-[16px] max-navlg:h-[16px]"
                   >
                     <path d="M478-240q21 0 35.5-14.5T528-290q0-21-14.5-35.5T478-340q-21 0-35.5 14.5T428-290q0 21 14.5 35.5T478-240Zm-36-154h74q0-33 7.5-52t42.5-52q26-26 41-49.5t15-56.5q0-56-41-86t-97-30q-57 0-92.5 30T342-618l66 26q5-18 22.5-39t53.5-21q32 0 48 17.5t16 38.5q0 20-12 37.5T506-526q-44 39-54 59t-10 73Zm38 314q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                   </svg>
                 </div>
 
-                <div className="h-8 w-8 rounded-md flex justify-center items-center bg-neutral-700">
+                <div className="h-8 w-8 rounded-md flex justify-center items-center bg-neutral-700 transition-all max-navlg:w-[30px] max-navlg:h-[30px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20px"
@@ -70,9 +71,9 @@ function ProfilePage() {
               </div>
             </div>
             <div className="flex flex-col text4 gap-3 pl-4 max-navlg:justify-between max-navlg:mt-3 max-navlg:mb-3">
-              <div className="text-3xl font-bold w-max">{name}</div>
+              <div className="text-3xl font-bold w-max max-navlg:text-[25px]">{name}</div>
               <div className="max-navlg:hidden">About</div>
-              <div className="flex flex-col gap-3 text-[14px]">
+              <div className="flex flex-col gap-3 text-[14px] max-navlg:text-[12px]">
                 <div className="flex items-center text-gray gap-6">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -159,8 +160,8 @@ function ProfilePage() {
         {/**Todos Cards */}
         <div className="w-[70%] h-full gap-4 flex flex-col items-center background-color max-navlg:w-full">
           <div className="w-[100%] div-color p-3 rounded-md">
-            <div className="text4 text-lg">Latest Todos</div>
-            <div className="text-sm text-neutral-500">
+            <div className="text4 text-lg max-navlg:text-[16px]">Latest Todos</div>
+            <div className="text-sm text-neutral-500 max-navlg:text-[12px]">
               List of all the latest todos
             </div>
 
@@ -174,8 +175,8 @@ function ProfilePage() {
 
           <div className="w-[100%] flex gap-4 max-navlg:flex-col max-navlg:overflow-hidden">
             <div className="h-[445px] w-[50%] p-3 rounded-md div-color max-navlg:w-full max-navmd:h-[250px]">
-              <div className="text4 text-lg">Projects</div>
-              <div className="text-sm text-neutral-500">
+              <div className="text4 text-lg max-navlg:text-[16px]">Projects</div>
+              <div className="text-sm text-neutral-500 max-navlg:text-[12px]">
                 List of all the Projects created
               </div>
               
@@ -197,8 +198,8 @@ function ProfilePage() {
               </div>
             </div>
             <div className="w-[50%] p-5 rounded-md div-color max-navlg:w-full">
-              <div className="text4 text-lg">Achievements</div>
-              <div className="text-sm text-neutral-500">
+              <div className="text4 text-lg max-navlg:text-[16px]">Achievements</div>
+              <div className="text-sm text-neutral-500 max-navlg:text-[12px]">
                 Get the latest achievements by doing todos
               </div>
 
@@ -226,8 +227,8 @@ function TaskCard({ishidden}) {
 
       <div className="flex w-72 justify-between max-navlg:w-[90%] max-navlg:pr-3">
         <div className="ml-3">
-          <div className="text-[14px] text4 font-medium">I want to LOve</div>
-          <div className="text-[12px] text-gray">
+          <div className="text-[14px] text4 font-medium max-navlg:text-[12px]">I want to LOve</div>
+          <div className="text-[12px] text-gray max-navlg:text-[10px]">
             I want to love because i can love
           </div>
         </div>
@@ -264,8 +265,8 @@ function AchievementCard({ img, name }) {
       max-navmd:w-max max-navmd:p-0"
     >
       <div
-        style={{ backgroundImage: `url(${img})` }}
-        className="h-[100px] w-[100px] bg-center bg-cover relative max-navlg:w-[50px] max-navlg:h-[50px] max-navlg:rounded-lg"
+        style={{ backgroundImage: `url(${img})`}}
+        className="h-[100px] w-[100px] bg-center bg-cover relative max-navlg:w-[50px] max-navlg:h-[50px] max-navsm:w-[40px] max-navsm:h-[40px] max-navlg:rounded-lg"
       >
         <div className="absolute w-6 left-[90px] top-[-13px] flex justify-center rounded-full text4 bg-red-500 text-sm max-navlg:hidden">
           +5

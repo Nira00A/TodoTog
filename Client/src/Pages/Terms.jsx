@@ -6,8 +6,8 @@ export default function Terms() {
       <div className="flex w-[1150px] mt-3 gap-6 max-h-screen overflow-y-auto max-navlg:flex-col max-navlg:w-full max-navlg:gap-3 p-3">
         {/* Table of Contents */}
         <div className="w-[300px] div-color max-h-[350px] p-4 rounded-lg max-navlg:w-full max-navlg:max-h-max">
-          <div className="text-xl text4">Table of Contents</div>
-          <div className="pl-2 mt-3">
+          <div className="text-xl text4 transition-all max-navsm:text-[16px]">Table of Contents</div>
+          <div className="pl-2 mt-3 transition-all max-navsm:pl-1">
             {[
               "Introduction",
               "User Accounts",
@@ -22,7 +22,7 @@ export default function Terms() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="mb-2 hover:text-red-600 cursor-pointer transition duration-500 text-gray text-sm"
+                className="mb-2 hover:text-red-600 cursor-pointer text-gray text-sm transition-all max-navsm:text-[12px]"
               >
                 {item}
               </div>
@@ -32,8 +32,8 @@ export default function Terms() {
 
         {/* Terms & Services Content */}
         <div className="w-4/6 max-navlg:w-full">
-          <div className="heading">Terms & Services</div>
-          <div className="text-neutral-500 text-sm">
+          <div className="heading max-navsm:text-[20px] transition-all">Terms & Services</div>
+          <div className="text-neutral-500 text-sm max-navsm:text-[12px] transition-all">
             Last updated on March 7, 2025
           </div>
           <div className="pb-10">
@@ -90,8 +90,8 @@ export default function Terms() {
               },
             ].map((item, index) => (
               <div key={index} className="mt-3">
-                <div className="text4 font-bold">{item.title}</div>
-                <div className="text-gray text-sm">{item.content}</div>
+                <div className="text4 font-bold max-navsm:text-[14px] transition-all">{item.title}</div>
+                <div className="text-gray text-sm max-navsm:text-[12px] transition-all">{item.content}</div>
               </div>
             ))}
           </div>

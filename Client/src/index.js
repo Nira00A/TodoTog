@@ -10,7 +10,7 @@ import DashboardLayout from './DashboardLayout';
 import { DashCenter } from './websiteComponent/Dashboard/index';
 import { TodoContextProvider } from './context/TodoContext';
 import Register from './websiteComponent/Register/Register';
-import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms , Settings , Project} from './Pages/index.js'
+import {TaskPage , RewardsPage , Dashboard , CalenderPage, Terms , Settings , Project , ProjectTodo} from './Pages/index.js'
 import ProfilePage from './Pages/ProfilePage.jsx';
 import { FeatureContextProvider } from './context/FeatureContext.js';
 import ProjectCreate from './Pages/ProjectCreate.jsx';
@@ -77,8 +77,12 @@ const AppRoutes = () =>{
                 element: <Settings />
               },
               {
-                path:'/dashboard/create',
+                path:'/dashboard/project/create',
                 element: <ProjectCreate />
+              },
+              {
+                path:'/dashboard/project/:projectId',
+                element: <ProjectTodo />
               }
             ]
           },

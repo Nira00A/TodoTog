@@ -71,7 +71,7 @@ export function TaskPage() {
     <div className="w-full h-full flex justify-center relative">
       <div className="flex flex-col relative p-3 overflow-y-scroll scrollbar-none w-[770px] items-center max-navmdb:w-full">
         <div className="flex flex-col w-full h-max">
-          <div className="heading mb-6 w-full">#Task</div>
+          <div className="heading mb-6 w-full transition-all max-navsm:text-[20px] max-navsm:mb-3">#Task</div>
 
           <div className="flex flex-col w-full">
             <form
@@ -94,7 +94,7 @@ export function TaskPage() {
                         placeholder="Enter your task here..."
                         autoComplete="off"
                         color="gray"
-                        className="task-input min-w-full max-w-[320px]"
+                        className="task-input h-[40px] min-w-full max-w-[320px] max-navsm:text-[12px] max-navsm:h-[30px]"
                         />
 
                         <div className="task-length-limit">
@@ -106,25 +106,9 @@ export function TaskPage() {
                                 </div>
                                 )}
                             </div>
-                            <div className="text4 pr-2">{wordLimit}/100</div>
+                            <div className="text4 max-navsm:text-[10px] pr-2">{wordLimit}/100</div>
                         </div>
                     </div>
-                </div>
-
-                <div className="absolute top-[9px] left-[8px]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    fill="gray"
-                  >
-                    <path
-                      d="M120-120v-720h720v720H120Zm600-160H240v60h480v-60Zm-480-
-                                    60h480v-60H240v60Zm0-140h480v-240H240v240Zm0 200v60-60Zm0-60v-60 
-                                    60Zm0-140v-240 240Zm0 80v-80 80Zm0 120v-60 60Z"
-                    />
-                  </svg>
                 </div>
               </div>
             </form>
@@ -146,6 +130,7 @@ export function TaskPage() {
                     viewBox="0 -960 960 960"
                     width="34px"
                     fill="gray"
+                    className="h-[24px]"
                   >
                     <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
                   </svg>
@@ -174,15 +159,15 @@ export function TaskPage() {
               <div className="flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  height="50px"
                   viewBox="0 -960 960 960"
                   width="50px"
                   fill="lightgray"
+                  className="max-navsm:w-[30px] transition-all"
                 >
                   <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm0-80h280v-480H160v480Zm360 0h280v-480H520v480Zm-320-80h200v-80H200v80Zm0-120h200v-80H200v80Zm0-120h200v-80H200v80Zm360 240h200v-80H560v80Zm0-120h200v-80H560v80Zm0-120h200v-80H560v80ZM440-240v-480 480Z" />
                 </svg>
               </div>
-              <div className="text-sm">
+              <div className="text-sm max-navsm:text-[10px]">
                 No todos? Maybe it's a sign to create something awesome.
                 <br />
                 Lets start some new todos...

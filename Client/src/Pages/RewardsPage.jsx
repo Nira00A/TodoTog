@@ -20,36 +20,36 @@ export default function RewardsPage(){
 
     return(
             <div className="w-full h-full flex justify-center overflow-scroll scrollbar-none relative">
-                <div className="w-[1150px] h-full p-3 relative max-navlg:w-full">
+                <div className="w-[1150px] p-3 relative max-navlg:w-full">
                     <div className="mb-5 max-navlg:w-full">
-                        <div className="heading">Achievements</div>
-                        <div className="text-neutral-500 text-sm">Earn achievements by completing daily todos</div>
+                        <div className="heading max-navsm:text-[20px] transition-all">Achievements</div>
+                        <div className="text-neutral-500 text-sm max-navsm:text-[12px] transition-all">Earn achievements by completing daily todos</div>
                     </div>
 
                     <div className="transition-all duration-500 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] flex gap-3 justify-between max-navlg:w-[100%] max-sm:flex-col">
                         {points.map((items,index)=>(
                         <div key={index} className="flex div-color w-full rounded-md items-center">
-                            <div style={{backgroundImage: `url(${items.img})`}} className="bg-cover bg-center h-20 w-20">
+                            <div style={{backgroundImage: `url(${items.img})`}} className="bg-cover bg-center h-20 w-20 max-navsm:h-[50px] max-navsm:w-[50px] transition-all">
 
                             </div>
 
                             <div className="text4">
-                                <div className="text-sm">{items.name}</div>
-                                <div className="text-xl text4 font-bold">
+                                <div className="text-sm h-[12px] max-navsm:text-[12px]">{items.name}</div>
+                                <div className="text-xl text4 h-[20px] font-bold max-navsm:text-[14px]">
                                     {items.points}
                                 </div>
-                                <div className="cursor-pointer text-blue-400" style={{fontSize: '12px'}}>Earn more -{`>`}</div>
+                                <div className="cursor-pointer text-blue-400 text-[12px] max-navsm:text-[10px]">Earn more -{`>`}</div>
                             </div>
                         </div>
                         ))}
                     </div>
 
-                    <div className="flex-col h-full mt-6 relative max-navlg:w-full">
+                    <div className="flex-col mt-6 relative max-navlg:w-full">
                         <div>
-                            <div className="text-xl text4 font-semibold">
+                            <div className="text-xl text4 font-semibold transition-all max-navsm:text-[20px]">
                                 Activity
                             </div>
-                            <div className="text-neutral-500 text-sm">
+                            <div className="text-neutral-500 text-sm transition-all max-navsm:text-[12px]">
                                 Earn Xp with each completed achievement
                             </div>
                         </div>
@@ -58,6 +58,10 @@ export default function RewardsPage(){
                             {badge.map((items , index)=>(
                                 <Badges key={index} name={items.name} desc={items.desc} img={items.img}/>
                             ))}
+                        </div>
+
+                        <div className="h-3">
+
                         </div>
                     </div>
                 </div>
@@ -68,7 +72,7 @@ export default function RewardsPage(){
 function BadgesBar({img , name}){
     return(
         <div className="badge-body">
-            <div style={{backgroundImage: `url(${img})`}} className="h-14 w-14 bg-black rounded-full">
+            <div style={{backgroundImage: `url(${img})`}} className="h-[56px] w-[56px] bg-black rounded-full max-navsm:h-[30px] max-navsm:w-[30px]">
             </div>
 
             <div className="flex-col6 items-center">
@@ -92,15 +96,15 @@ function Badges({img , name , desc , tag}){
             </div>
             
             <div className="flex flex-col items-center max-navmd:flex-row">
-                <div className="h-40 w-40 flex bg-cover bg-center max-navmd:h-20 max-navmd:w-20" style={{backgroundImage: `url(${img})`}}>
+                <div className="h-40 w-40 flex bg-cover bg-center transition-all max-navmd:h-20 max-navmd:w-20 max-navsm:h-[50px] max-navsm:w-[50px]" style={{backgroundImage: `url(${img})`}}>
                     <img src="/Images/Badges/third.png" alt="" />
                 </div>
                 <div className='flex flex-col max-navmd:items-start'>  
-                    <div className="flex text4 justify-center mt-3 max-navmd:m-0 max-navmd:justify-start">
+                    <div className="flex text4 justify-center mt-3 transition-all max-navmd:m-0 max-navmd:justify-start max-navsm:text-[12px]">
                         {name}
                     </div>
 
-                    <div className="text-xs text-center text-neutral-500 mt-5 max-navmd:m-0 max-navmd:text-start">
+                    <div className="text-xs text-center text-neutral-500 mt-5 transition-all max-navmd:m-0 max-navmd:text-start max-navsm:text-[10px]">
                         {desc}
                     </div>
                 </div>

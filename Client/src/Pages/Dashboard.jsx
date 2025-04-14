@@ -1,7 +1,6 @@
 import React, { useEffect , useState} from "react";
 import axios from "axios"
 import {Area, AreaChart, Line , LineChart, XAxis , YAxis , Tooltip , CartesianGrid , ResponsiveContainer, Brush} from "recharts"
-import { Calendar1 } from "./Calendar";
 import { NavLink } from "react-router-dom";
 import { useFeature } from "../context/FeatureContext";
 import { NormalTags } from "../dashboardComponent/HeaderPopups/CreateTodoButton";
@@ -115,7 +114,7 @@ export default function Dashboard(){
 
                         <div className="flex gap-3 mt-4">
                             <LongCard data={data} dataKey="pv"/>
-                            <Calendar1 />
+                            
                         </div>
 
                         <div className="flex-col">
@@ -392,7 +391,6 @@ function LongChart({data}){
     return(
         <ResponsiveContainer height='100%' width="100%">
             <AreaChart width={300} height={100} data={data} syncId="anyId" margin={{top: 10 , right: 30}}>
-
             <Area type="monotone" fill="red" stroke="" dataKey="completed" />
             <Area type="monotone" fill="" stroke="" dataKey="pending" />
             <XAxis dataKey={"month"} tick={{ fontSize: 10 }}/>

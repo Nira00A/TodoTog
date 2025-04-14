@@ -53,8 +53,8 @@ export default function ProjectCreate(){
 
         setTimeout(() => setShowPopup(true), 500);
         setTimeout(() => setShowPopup(false), 3000);
-        
         project()
+        
     }
 
     return(
@@ -85,14 +85,14 @@ export default function ProjectCreate(){
                     <div className="text-[14px] text-neutral-500">
                         Project Name
                     </div>
-                    <input onChange={(e)=>handleChange('title',e.target.value)} placeholder="Enter project title..." className="w-full h-10 text-[12px] p-2 text4 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-neutral-600"/>
+                    <input onChange={(e)=>handleChange('title',e.target.value)} placeholder="Enter project title..." className="w-full h-10 text-[12px] p-2 text4 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-[var(--border-color)]"/>
                 </div>
 
                 <div className="flex flex-col gap-2 mt-3">
                     <div className="text-[14px] text-neutral-500">
                         Description
                     </div>
-                    <textarea onChange={(e)=>handleChange('desc',e.target.value)} placeholder="Enter project description..." className="w-full h-28 text-[12px] p-2 text4 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-neutral-600"/>
+                    <textarea onChange={(e)=>handleChange('desc',e.target.value)} placeholder="Enter project description..." className="w-full h-28 text-[12px] p-2 text4 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-[var(--border-color)]"/>
                 </div>
 
                 <div className="flex flex-col gap-2 mt-3">
@@ -133,7 +133,7 @@ export default function ProjectCreate(){
                     <div className="text-[14px] text-neutral-500">
                         Set Deadline
                     </div>
-                    <input onChange={(e)=>handleChange('duedate',e.target.value)} type="date" placeholder="Enter project description..." className="w-full h-10 text-[12px] p-2 text-neutral-500 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-neutral-600"/>
+                    <input onChange={(e)=>handleChange('duedate',e.target.value)} type="date" placeholder="Enter project description..." className="w-full h-10 text-[12px] p-2 text-neutral-500 rounded-lg overlay-color border-[1px] focus:outline-neutral-900 border-[var(--border-color)]"/>
                 </div>
 
                 <div className="flex mt-6 w-full">

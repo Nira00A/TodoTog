@@ -8,7 +8,14 @@ export default function DashHeader(){
     const [openMessage , setOpenMessage] = useState()
     const {profilePicture} = useFeature()
     const location = useLocation()
-    const pathname = location.pathname.split('/').pop()
+    const pathname = location.pathname.split('/').filter(Boolean)
+    
+    const pathnames = () =>{
+        if(pathname.length === 1){
+           return 'dashboard'
+        }
+        return pathname.slice(1).join(" > ")
+    }
 
     const handleOpenMessage = () => {
         setOpenMessage((prev) => !prev);
@@ -27,16 +34,16 @@ export default function DashHeader(){
 
     return(
         <div className="dashHeader relative">
-            <div className="flex items-center text-sm text-neutral-500 ml-5">
-                {pathname}
+            <div className="flex items-center text-sm text-neutral-500 ml-5 max-navsm:text-[10px] max-navmd:text-[12px] transition-all">
+                {pathnames()}
             </div>
             <div className="flex items-center gap-1 mr-2">
                 <Toggle/>
                 <div className=" h-8 w-8 hover:bg-gray-100 flex items-center justify-center rounded-full cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="gray"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg>
+                    <svg className="w-[20px] transition-all max-navmd:w-[16px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="gray"><path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/></svg>
                 </div>
                 <div onClick={handleOpenProfile} className="relative">
-                    <div style={{backgroundImage: `url(${profilePicture})`}} className="h-8 w-8 bg-center bg-cover cursor-pointer rounded-full">
+                    <div style={{backgroundImage: `url(${profilePicture})`}} className="w-8 h-8 transition-all bg-center bg-cover cursor-pointer rounded-full max-navmd:w-[24px] max-navmd:h-[24px]">
                     </div>
                     {openProfile && <ProfileButton onClick={handleCloseProfile}/>}
                 </div>
