@@ -360,7 +360,116 @@ app.get('/getproject', async(req,res)=>{
     const result = await pool.query('SELECT * FROM project WHERE user_id = $1',[user_id])
     res.status(200).json(result.rows)
   } catch (error) {
+    console.log('Cant get the project')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/projecttodosubmit',async(req,res)=>{
+  const user_id = req.session.user_id
+
+  if(!user_id ){
+    console.log('no session found')
+  }
+
+  const {proj_id , title , description , starttime , endtime , status} = req.body
+
+  try {
+    const result = await pool.query('INSERT INTO projecttodo (user_id , proj_id , title , description , starttime , endtime , status) VALUES ($1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7) RETURNING *', [user_id , proj_id , title , description , starttime , endtime , status])
+    res.status(200).json({result:result.rows[0]})
+  } catch (error) {
+    console.log('Cant submit the project todos')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/getprojecttodo',async (req,res)=>{
+  const user_id = req.session.user_id
+  const {proj_id} = req.body
+
+  if(!user_id ){
+    res.status(500).json({error: 'No user Id found'})
+  }
+
+  if(!proj_id ){
+    res.status(500).json({error: 'No project Id found'})
+  }
+
+  try {
+    const result = await pool.query('SELECT * FROM projecttodo WHERE user_id = $1 AND proj_id = $2', [user_id , proj_id])
+    res.status(200).json({result: result.rows})
+  } catch (error) {
     console.log('Cant get the project todos')
+    res.status(500).json({ error: "Server error" });
+  }
+
+})
+
+app.post('/deleteprojecttodo',async (req,res)=>{
+  const user_id = req.session.user_id
+  const {proj_id , id} = req.body
+
+  try {
+    await pool.query('DELETE FROM projecttodo WHERE id = $1 AND user_id = $2 AND proj_id = $3', [id , user_id , proj_id]) 
+    console.log('Project deleted of id:', id)
+  } catch (error) {
+    console.log('Cant delete the project todos')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/notes',async(req,res)=>{
+  const user_id = req.session.user_id
+  const {proj_id , notes} = req.body
+  const status = 'true'
+
+  try {
+    await pool.query('INSERT INTO projectnotes (user_id , proj_id , notes , status) VALUES ($1 , $2 , $3 , $4)', [user_id , proj_id , notes , status])
+    res.status(200).json({result: result.rows})
+  } catch (error) {
+    console.log('Cant submit the notes')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/getnotes', async(req,res)=>{
+  const user_id = req.session.user_id
+  const {proj_id} = req.body
+
+  if(!user_id ){
+    res.status(500).json({error: 'No user Id found'})
+  }
+
+  if(!proj_id ){
+    res.status(500).json({error: 'No project Id found'})
+  }
+
+  try {
+    const result = await pool.query('SELECT * FROM projectnotes WHERE user_id = $1 AND proj_id = $2', [user_id , proj_id])
+    res.status(200).json({result: result.rows})
+  } catch (error) {
+    console.log('Cant get the notes')
+    res.status(500).json({ error: "Server error" });
+  }
+})
+
+app.post('/noteschecked', async(req,res)=>{
+  const user_id = req.session.user_id
+  const {id , proj_id} = req.body
+
+  if(!user_id ){
+    res.status(500).json({error: 'No user Id found'})
+  }
+
+  if(!proj_id ){
+    res.status(500).json({error: 'No project Id found'})
+  }
+
+  try {
+    const result = await pool.query('UPDATE projectnotes SET status = false WHERE id = $1 AND user_id = $2 AND proj_id = $3', [id , user_id , proj_id])
+    res.status(200).json({result: result.rows})
+  } catch (error) {
+    console.log('Cant update the notes')
     res.status(500).json({ error: "Server error" });
   }
 })
